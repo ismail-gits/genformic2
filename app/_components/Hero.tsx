@@ -11,12 +11,10 @@ function Hero() {
             Unlock the Future of
             <strong className="text-modern"> Form Creation with AI. </strong>
           </h1>
-
           <p className="mt-4 text-base text-pretty text-gray-500 sm:text-lg/relaxed">
             Genformic uses AI to create, share, and automate forms effortlessly.
             Just provide a prompt, and let AI handle the rest.
           </p>
-
           <div className="mt-4 flex justify-center gap-4 sm:mt-6">
             <Button size={"lg"} className="flex justify-center items-center">
               <Sparkles />
