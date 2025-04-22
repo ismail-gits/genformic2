@@ -3,10 +3,11 @@
 import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 function Header() {
-  const { user, isSignedIn } = useUser();
+  const { isSignedIn } = useUser();
 
   return (
     <div className="p-5 border shadow-sm">
@@ -20,11 +21,15 @@ function Header() {
         />
         {isSignedIn ? (
           <div className="flex items-center gap-5">
-            <Button variant={"outline"}>Dashboard</Button>
+            <Link href={'/dashboard'}>
+              <Button variant={"outline"}>Dashboard</Button>
+            </Link>
             <UserButton />
           </div>
         ) : (
-          <Button>Get Started</Button>
+          <SignInButton>
+            <Button>Get Started</Button>
+          </SignInButton>
         )}
       </div>
     </div>
