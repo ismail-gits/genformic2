@@ -11,6 +11,7 @@ function Header() {
           width={150}
           height={50}
           alt="genformic-logo"
+          className="duration-300 hover:scale-120 cursor-pointer"
         />
         <Button variant={"default"}>Get Started</Button>
       </div>
