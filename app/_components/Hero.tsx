@@ -18,7 +18,7 @@ function Hero() {
           <div className="mt-4 flex justify-center gap-4 sm:mt-6">
             <Button size={"lg"} className="flex justify-center items-center">
               <Sparkles />
-              <div>Generate AI Form</div>
+              Generate AI Form
             </Button>
             <Button variant={"outline"} size={"lg"}>
               Learn More

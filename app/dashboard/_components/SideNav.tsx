@@ -1,11 +1,13 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   ChartNoAxesCombined,
   LibraryBig,
   LucideIcon,
   MessageSquareQuote,
   ShieldPlus,
+  Sparkles,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
@@ -58,13 +60,16 @@ export default function SideNav() {
           <h2
             key={index}
             className={`flex items-center gap-3 p-4 mb-2 text-gray-700 hover:bg-modern hover:text-white rounded-lg cursor-pointer ${
-              (path === menu.path) && "bg-modern text-white"
+              path === menu.path && "bg-modern text-white"
             }`}
           >
             <menu.icon />
             {menu.name}
           </h2>
         ))}
+      </div>
+      <div className="fixed bottom-20 p-6 w-64">
+        <Button className="w-full"><Sparkles /> Create Form</Button>
       </div>
     </div>
   );
