@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ChartNoAxesCombined,
   LibraryBig,
@@ -5,7 +7,8 @@ import {
   MessageSquareQuote,
   ShieldPlus,
 } from "lucide-react";
-import React from "react";
+import { usePathname } from "next/navigation";
+import React, { useEffect } from "react";
 
 type MenuListType = {
   id: number;
@@ -19,7 +22,7 @@ const menuList: MenuListType[] = [
     id: 1,
     name: "My Forms",
     icon: LibraryBig,
-    path: "/forms",
+    path: "/dashboard",
   },
   {
     id: 2,
@@ -42,11 +45,22 @@ const menuList: MenuListType[] = [
 ];
 
 export default function SideNav() {
+  const path = usePathname();
+
+  useEffect(() => {
+    // console.log(path)
+  }, [path]);
+
   return (
     <div className="h-screen shadow-md border">
-      <div className="p-3.5">
+      <div className="p-5">
         {menuList.map((menu: MenuListType, index: number) => (
-          <h2 key={index} className="flex items-center gap-3 p-3">
+          <h2
+            key={index}
+            className={`flex items-center gap-3 p-4 mb-2 text-gray-700 hover:bg-modern hover:text-white rounded-lg cursor-pointer ${
+              (path === menu.path) && "bg-modern text-white"
+            }`}
+          >
             <menu.icon />
             {menu.name}
           </h2>
