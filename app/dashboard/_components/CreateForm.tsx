@@ -14,7 +14,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { fetchAiResponse } from "@/app/actions/geminiApi";
 import { useUser } from "@clerk/nextjs";
-import prisma from "@/lib/prisma/prisma";
+import { saveGeneratedForm } from "@/app/actions/saveGeneratedForm";
 
 export default function CreateForm() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -23,25 +23,19 @@ export default function CreateForm() {
 
   const { user, isSignedIn, isLoaded } = useUser();
 
-  const prompt = `Description: ${userPrompt}. On the basis of description, generate an advanced and detailed form in JSON format with title,  subheading, fields such as name, placeholder, label, type, options(value and label) and required`;
+  const prompt = `Description: ${userPrompt}. On the basis of description, generate a form in JSON format with title,  subheading, fields such as name, placeholder, label, type, options(value and label) and required. Note: Make sure there are no mistakes in the JSON output as I need to use JSON.parse()`;
 
   const onGenerateForm = async (): Promise<void> => {
     try {
       setIsLoading(true);
       const aiResponse = await fetchAiResponse(prompt);
+      console.log(aiResponse)
+      const dbResponse = await saveGeneratedForm(aiResponse);
+      console.log("Form created successfully:", dbResponse);
 
-      if (isSignedIn && isLoaded) {
-        const dbResponse = await prisma.forms.create({
-          data: {
-            ownerId: user.id,
-            jsonForm: JSON.stringify(aiResponse),
-          },
-          select: {
-            id: true,
-          },
-        });
-        console.log("Form created successfully:", dbResponse);
-      }
+      // close the dialog after form creation
+      setIsDialogOpen(false)
+
     } catch (error) {
       console.log("Error fetching AI response: ", error);
     } finally {

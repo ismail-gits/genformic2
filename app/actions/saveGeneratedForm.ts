@@ -1,26 +1,28 @@
+"use server"
+
 import prisma from "@/lib/prisma/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 
 type DbResponseType = {
-  id: string
-}
+  id: string;
+};
 
 export async function saveGeneratedForm(form: string): Promise<DbResponseType> {
-  const user = await currentUser()
+  const user = await currentUser();
 
   if (!user) {
-    throw new Error("Unauthorized")
+    throw new Error("Unauthorized");
   }
 
   const dbResponse = await prisma.forms.create({
     data: {
       ownerId: user.id,
-      jsonForm: JSON.stringify(form)
+      jsonForm: JSON.parse(form),
     },
     select: {
-      id: true
-    }
-  })
+      id: true,
+    },
+  });
 
-  return dbResponse
+  return dbResponse;
 }
