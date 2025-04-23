@@ -1,15 +1,24 @@
-"use client"
+"use client";
 
-import { useParams } from 'next/navigation'
-import React from 'react'
+import getForm from "@/app/actions/getForm";
+import { useParams } from "next/navigation";
+import React from "react";
 
-export default function EditForm() {
-  const params = useParams()
+type EditFormType = {
+  params: {
+    formId: string;
+  };
+};
+
+export default function EditForm({ params }: EditFormType) {
+  const fetchForm = async () => {
+    const form = await getForm(params.formId);
+  };
 
   return (
     <div>
       Edit Form
       {params.formId}
     </div>
-  )
+  );
 }
