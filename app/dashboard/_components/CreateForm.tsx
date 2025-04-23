@@ -1,7 +1,8 @@
 "use client";
 
-import { Sparkles } from "lucide-react";
+import { Loader, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +14,6 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { fetchAiResponse } from "@/app/actions/geminiApi";
-import { useUser } from "@clerk/nextjs";
 import { saveGeneratedForm } from "@/app/actions/saveGeneratedForm";
 
 export default function CreateForm() {
@@ -21,7 +21,7 @@ export default function CreateForm() {
   const [userPrompt, setUserPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { user, isSignedIn, isLoaded } = useUser();
+  const route = useRouter();
 
   const prompt = `Description: ${userPrompt}. On the basis of description, generate a form in JSON format with title,  subheading, fields such as name, placeholder, label, type, options(value and label) and required. Note: Make sure there are no mistakes in the JSON output as I need to use JSON.parse()`;
 
@@ -29,13 +29,16 @@ export default function CreateForm() {
     try {
       setIsLoading(true);
       const aiResponse = await fetchAiResponse(prompt);
-      console.log(aiResponse)
+      console.log(aiResponse);
       const dbResponse = await saveGeneratedForm(aiResponse);
       console.log("Form created successfully:", dbResponse);
 
-      // close the dialog after form creation
-      setIsDialogOpen(false)
+      if (dbResponse.id) {
+        route.push(`/form/edit/${dbResponse.id}`);
+      }
 
+      // close the dialog after form creation
+      setIsDialogOpen(false);
     } catch (error) {
       console.log("Error fetching AI response: ", error);
     } finally {
@@ -69,7 +72,7 @@ export default function CreateForm() {
                 Cancel
               </Button>
               <Button onClick={onGenerateForm} disabled={isLoading}>
-                Generate
+                {isLoading ? <Loader className="animate-spin"/> : "Generate"}
               </Button>
             </div>
           </DialogHeader>
