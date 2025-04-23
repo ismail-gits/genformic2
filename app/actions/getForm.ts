@@ -6,7 +6,7 @@ import { formSchemaType } from "@/lib/zod";
 
 export default async function getForm(
   formId: string
-): Promise<formSchemaType | undefined> {
+): Promise<formSchemaType | null> {
   const user = await currentUser();
 
   if (!user) {
@@ -32,5 +32,6 @@ export default async function getForm(
     return form
   } catch (error) {
     console.log("Error fetching form from database:", error)
+    return null
   }
 }

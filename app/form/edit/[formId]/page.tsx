@@ -1,26 +1,34 @@
 "use client";
 
 import getForm from "@/app/actions/getForm";
+import React, { useEffect, useState } from "react";
+import { formSchemaType } from "@/lib/zod";
 import { useParams } from "next/navigation";
-import React from "react";
 
-type EditFormType = {
-  params: {
-    formId: string;
+export default function EditForm() {
+  const params = useParams()
+  const [form, setForm] = useState<formSchemaType | null>(null);
+
+  const fetchForm = async () => {
+    try {
+      if (params?.formId) {
+        const currentForm = await getForm(params.formId as string);
+        setForm(currentForm);
+      }
+    } catch (error) {
+      console.log("Error while fetching form")
+    }
   };
-};
 
-export default function EditForm({ params }: EditFormType) {
-  // const fetchForm = async () => {
-  //   const form = await getForm(params.formId);
-  //   return form
-
-  //   console.log(form)
-  // };
+  useEffect(() => {
+    fetchForm()
+  }, [params.formId])
 
   return (
     <div>
       Edit Form
+      <br />
+      {JSON.stringify(form)}
     </div>
   );
 }

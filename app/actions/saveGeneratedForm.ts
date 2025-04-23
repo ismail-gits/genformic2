@@ -10,7 +10,7 @@ type DbResponseType = {
 
 export async function saveGeneratedForm(
   form: string
-): Promise<DbResponseType | undefined> {
+): Promise<DbResponseType | null> {
   const user = await currentUser();
 
   if (!user) {
@@ -39,5 +39,6 @@ export async function saveGeneratedForm(
     return dbResponse;
   } catch (error) {
     console.log("Error while saving form to the database", error);
+    return null;
   }
 }
