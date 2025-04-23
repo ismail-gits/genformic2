@@ -10,7 +10,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -18,9 +17,11 @@ export default function CreateForm() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [userInput, setUserInput] = useState("");
 
-  const onGenerateForm = (): void => {
+  const onGenerateForm = async (): Promise<void> => {
     console.log(userInput);
     setIsDialogOpen(false);
+
+    
   };
 
   return (
