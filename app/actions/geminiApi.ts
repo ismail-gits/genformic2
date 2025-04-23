@@ -9,7 +9,7 @@ export async function fetchAiResponse(prompt: string): Promise<string> {
   const config = {
     responseMimeType: "application/json",
   };
-  const model = "gemini-2.5-flash-preview-04-17";
+  const model = "gemini-2.0-flash";
   const contents = [
     {
       role: "user",

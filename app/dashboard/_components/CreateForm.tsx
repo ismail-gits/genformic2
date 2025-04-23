@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { fetchAiResponse } from "@/app/actions/geminiApi";
 import { saveGeneratedForm } from "@/app/actions/saveGeneratedForm";
+import { generatePrompt } from "@/lib/prompt";
 
 export default function CreateForm() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -24,11 +25,10 @@ export default function CreateForm() {
 
   const route = useRouter();
 
-  const prompt = `Description: ${userPrompt}. On the basis of description, generate a form in JSON format with title,  subheading, fields such as name, placeholder, label, type, options(value and label) and required. Note: Make sure there are no mistakes in the JSON output as I need to use JSON.parse()`;
-
   const onGenerateForm = async (): Promise<void> => {
     try {
       setIsLoading(true);
+      const prompt = generatePrompt(userPrompt)
       const aiResponse = await fetchAiResponse(prompt);
       console.log(aiResponse)
       const dbResponse = await saveGeneratedForm(aiResponse);

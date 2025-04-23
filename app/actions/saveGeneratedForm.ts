@@ -8,7 +8,9 @@ type DbResponseType = {
   id: string;
 };
 
-export async function saveGeneratedForm(form: string): Promise<DbResponseType | null> {
+export async function saveGeneratedForm(
+  form: string
+): Promise<DbResponseType | undefined> {
   const user = await currentUser();
 
   if (!user) {
@@ -16,8 +18,8 @@ export async function saveGeneratedForm(form: string): Promise<DbResponseType | 
   }
 
   try {
-    const jsonForm = JSON.parse(form)
-    const validation = formSchema.safeParse(jsonForm)
+    const jsonForm = JSON.parse(form);
+    const validation = formSchema.safeParse(jsonForm[0]);
 
     if (!validation.success) {
       console.log("Form validation failed:", validation.error.errors);
@@ -33,9 +35,9 @@ export async function saveGeneratedForm(form: string): Promise<DbResponseType | 
         id: true,
       },
     });
+
     return dbResponse;
   } catch (error) {
     console.log("Error while saving form to the database", error);
-    return null;
   }
 }
