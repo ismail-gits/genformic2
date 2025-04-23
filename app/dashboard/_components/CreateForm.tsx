@@ -12,16 +12,21 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import fetchAiResponse from "@/app/actions/geminiApi";
 
 export default function CreateForm() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [userInput, setUserInput] = useState("");
+  const [userPrompt, setUserPrompt] = useState("");
+
+  const prompt = `Description: ${userPrompt}. On the basis of description, generate an advanced and detailed form in JSON format with title,  subheading, fields such as name, placeholder, label, type, options(value and label) and required`;
 
   const onGenerateForm = async (): Promise<void> => {
-    console.log(userInput);
-    setIsDialogOpen(false);
-
-    
+    try {
+      const response = await fetchAiResponse(prompt);
+      console.log("AI response: ", response);
+    } catch (error) {
+      console.log("Error fetching AI response: ", error);
+    }
   };
 
   return (
@@ -36,7 +41,7 @@ export default function CreateForm() {
             <DialogDescription>
               <Textarea
                 onChange={(e) => {
-                  setUserInput(e.target.value);
+                  setUserPrompt(e.target.value);
                 }}
                 className="my-2 text-black"
                 placeholder="Type your prompt: e.g., 'Job application form for a startup'"
