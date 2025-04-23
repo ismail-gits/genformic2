@@ -2,7 +2,7 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-export default async function fetchAiResponse(prompt: string) {
+export async function fetchAiResponse(prompt: string): Promise<string> {
   const ai = new GoogleGenAI({
     apiKey: process.env.NEXT_GEMINI_API_KEY!,
   });
@@ -32,7 +32,7 @@ export default async function fetchAiResponse(prompt: string) {
       throw new Error("No text in Gemini response");
     }
 
-    return JSON.parse(response.text);
+    return response.text;
   } catch (error) {
     console.error("Gemini Server Action Error:", error);
     throw new Error("Failed to fetch AI response");

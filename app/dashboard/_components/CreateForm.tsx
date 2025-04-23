@@ -12,20 +12,40 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import fetchAiResponse from "@/app/actions/geminiApi";
+import { fetchAiResponse } from "@/app/actions/geminiApi";
+import { useUser } from "@clerk/nextjs";
+import prisma from "@/lib/prisma/prisma";
 
 export default function CreateForm() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [userPrompt, setUserPrompt] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { user, isSignedIn, isLoaded } = useUser();
 
   const prompt = `Description: ${userPrompt}. On the basis of description, generate an advanced and detailed form in JSON format with title,  subheading, fields such as name, placeholder, label, type, options(value and label) and required`;
 
   const onGenerateForm = async (): Promise<void> => {
     try {
-      const response = await fetchAiResponse(prompt);
-      console.log("AI response: ", response);
+      setIsLoading(true);
+      const aiResponse = await fetchAiResponse(prompt);
+
+      if (isSignedIn && isLoaded) {
+        const dbResponse = await prisma.forms.create({
+          data: {
+            ownerId: user.id,
+            jsonForm: JSON.stringify(aiResponse),
+          },
+          select: {
+            id: true,
+          },
+        });
+        console.log("Form created successfully:", dbResponse);
+      }
     } catch (error) {
       console.log("Error fetching AI response: ", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -54,7 +74,9 @@ export default function CreateForm() {
               >
                 Cancel
               </Button>
-              <Button onClick={onGenerateForm}>Generate</Button>
+              <Button onClick={onGenerateForm} disabled={isLoading}>
+                Generate
+              </Button>
             </div>
           </DialogHeader>
         </DialogContent>
