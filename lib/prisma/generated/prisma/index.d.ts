@@ -881,19 +881,19 @@ export namespace Prisma {
 
   export type FormsMinAggregateOutputType = {
     id: string | null
-    owenerId: string | null
+    ownerId: string | null
     createdAt: Date | null
   }
 
   export type FormsMaxAggregateOutputType = {
     id: string | null
-    owenerId: string | null
+    ownerId: string | null
     createdAt: Date | null
   }
 
   export type FormsCountAggregateOutputType = {
     id: number
-    owenerId: number
+    ownerId: number
     jsonForm: number
     createdAt: number
     _all: number
@@ -902,19 +902,19 @@ export namespace Prisma {
 
   export type FormsMinAggregateInputType = {
     id?: true
-    owenerId?: true
+    ownerId?: true
     createdAt?: true
   }
 
   export type FormsMaxAggregateInputType = {
     id?: true
-    owenerId?: true
+    ownerId?: true
     createdAt?: true
   }
 
   export type FormsCountAggregateInputType = {
     id?: true
-    owenerId?: true
+    ownerId?: true
     jsonForm?: true
     createdAt?: true
     _all?: true
@@ -994,7 +994,7 @@ export namespace Prisma {
 
   export type FormsGroupByOutputType = {
     id: string
-    owenerId: string
+    ownerId: string
     jsonForm: JsonValue
     createdAt: Date
     _count: FormsCountAggregateOutputType | null
@@ -1018,40 +1018,40 @@ export namespace Prisma {
 
   export type FormsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    owenerId?: boolean
+    ownerId?: boolean
     jsonForm?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["forms"]>
 
   export type FormsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    owenerId?: boolean
+    ownerId?: boolean
     jsonForm?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["forms"]>
 
   export type FormsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    owenerId?: boolean
+    ownerId?: boolean
     jsonForm?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["forms"]>
 
   export type FormsSelectScalar = {
     id?: boolean
-    owenerId?: boolean
+    ownerId?: boolean
     jsonForm?: boolean
     createdAt?: boolean
   }
 
-  export type FormsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "owenerId" | "jsonForm" | "createdAt", ExtArgs["result"]["forms"]>
+  export type FormsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ownerId" | "jsonForm" | "createdAt", ExtArgs["result"]["forms"]>
 
   export type $FormsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Forms"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      owenerId: string
+      ownerId: string
       jsonForm: Prisma.JsonValue
       createdAt: Date
     }, ExtArgs["result"]["forms"]>
@@ -1478,7 +1478,7 @@ export namespace Prisma {
    */
   interface FormsFieldRefs {
     readonly id: FieldRef<"Forms", 'String'>
-    readonly owenerId: FieldRef<"Forms", 'String'>
+    readonly ownerId: FieldRef<"Forms", 'String'>
     readonly jsonForm: FieldRef<"Forms", 'Json'>
     readonly createdAt: FieldRef<"Forms", 'DateTime'>
   }
@@ -1863,7 +1863,7 @@ export namespace Prisma {
 
   export const FormsScalarFieldEnum: {
     id: 'id',
-    owenerId: 'owenerId',
+    ownerId: 'ownerId',
     jsonForm: 'jsonForm',
     createdAt: 'createdAt'
   };
@@ -1972,14 +1972,14 @@ export namespace Prisma {
     OR?: FormsWhereInput[]
     NOT?: FormsWhereInput | FormsWhereInput[]
     id?: StringFilter<"Forms"> | string
-    owenerId?: StringFilter<"Forms"> | string
+    ownerId?: StringFilter<"Forms"> | string
     jsonForm?: JsonFilter<"Forms">
     createdAt?: DateTimeFilter<"Forms"> | Date | string
   }
 
   export type FormsOrderByWithRelationInput = {
     id?: SortOrder
-    owenerId?: SortOrder
+    ownerId?: SortOrder
     jsonForm?: SortOrder
     createdAt?: SortOrder
   }
@@ -1989,14 +1989,14 @@ export namespace Prisma {
     AND?: FormsWhereInput | FormsWhereInput[]
     OR?: FormsWhereInput[]
     NOT?: FormsWhereInput | FormsWhereInput[]
-    owenerId?: StringFilter<"Forms"> | string
+    ownerId?: StringFilter<"Forms"> | string
     jsonForm?: JsonFilter<"Forms">
     createdAt?: DateTimeFilter<"Forms"> | Date | string
   }, "id">
 
   export type FormsOrderByWithAggregationInput = {
     id?: SortOrder
-    owenerId?: SortOrder
+    ownerId?: SortOrder
     jsonForm?: SortOrder
     createdAt?: SortOrder
     _count?: FormsCountOrderByAggregateInput
@@ -2009,56 +2009,56 @@ export namespace Prisma {
     OR?: FormsScalarWhereWithAggregatesInput[]
     NOT?: FormsScalarWhereWithAggregatesInput | FormsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Forms"> | string
-    owenerId?: StringWithAggregatesFilter<"Forms"> | string
+    ownerId?: StringWithAggregatesFilter<"Forms"> | string
     jsonForm?: JsonWithAggregatesFilter<"Forms">
     createdAt?: DateTimeWithAggregatesFilter<"Forms"> | Date | string
   }
 
   export type FormsCreateInput = {
     id?: string
-    owenerId: string
+    ownerId: string
     jsonForm: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
   export type FormsUncheckedCreateInput = {
     id?: string
-    owenerId: string
+    ownerId: string
     jsonForm: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
   export type FormsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    owenerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
     jsonForm?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FormsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    owenerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
     jsonForm?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FormsCreateManyInput = {
     id?: string
-    owenerId: string
+    ownerId: string
     jsonForm: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
   export type FormsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    owenerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
     jsonForm?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FormsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    owenerId?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
     jsonForm?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2114,20 +2114,20 @@ export namespace Prisma {
 
   export type FormsCountOrderByAggregateInput = {
     id?: SortOrder
-    owenerId?: SortOrder
+    ownerId?: SortOrder
     jsonForm?: SortOrder
     createdAt?: SortOrder
   }
 
   export type FormsMaxOrderByAggregateInput = {
     id?: SortOrder
-    owenerId?: SortOrder
+    ownerId?: SortOrder
     createdAt?: SortOrder
   }
 
   export type FormsMinOrderByAggregateInput = {
     id?: SortOrder
-    owenerId?: SortOrder
+    ownerId?: SortOrder
     createdAt?: SortOrder
   }
 

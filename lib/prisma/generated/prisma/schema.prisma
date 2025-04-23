@@ -16,7 +16,7 @@ datasource db {
 
 model Forms {
   id        String   @id @default(uuid())
-  owenerId  String
+  ownerId   String
   jsonForm  Json
   createdAt DateTime @default(now())
 }
