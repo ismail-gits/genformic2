@@ -30,11 +30,11 @@ export default function CreateForm() {
     try {
       setIsLoading(true);
       const aiResponse = await fetchAiResponse(prompt);
-      console.log(aiResponse);
+      console.log(aiResponse)
       const dbResponse = await saveGeneratedForm(aiResponse);
       console.log("Form created successfully:", dbResponse);
 
-      if (dbResponse.id) {
+      if (dbResponse) {
         route.push(`/form/edit/${dbResponse.id}`);
       }
 
