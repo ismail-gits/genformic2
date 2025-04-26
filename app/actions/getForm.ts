@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import prisma from "@/lib/prisma/prisma";
 import { currentUser } from "@clerk/nextjs/server";
@@ -17,6 +17,7 @@ export default async function getForm(
     const response = await prisma.forms.findUnique({
       where: {
         id: formId,
+        ownerId: user.id,
       },
       select: {
         jsonForm: true,
@@ -27,11 +28,11 @@ export default async function getForm(
       throw new Error("Form not found or missing data");
     }
 
-    const form = JSON.parse(response.jsonForm) as formSchemaType
+    const form = JSON.parse(response.jsonForm) as formSchemaType;
 
-    return form
+    return form;
   } catch (error) {
-    console.log("Error fetching form from database:", error)
-    return null
+    console.log("Error fetching form from database:", error);
+    return null;
   }
 }
