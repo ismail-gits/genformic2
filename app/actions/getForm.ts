@@ -2,11 +2,11 @@
 
 import prisma from "@/lib/prisma/prisma";
 import { currentUser } from "@clerk/nextjs/server";
-import { formSchemaType } from "@/lib/zod";
+import { FormSchemaType } from "@/lib/zod";
 
 export default async function getForm(
   formId: string
-): Promise<formSchemaType | null> {
+): Promise<FormSchemaType | null> {
   const user = await currentUser();
 
   if (!user) {
@@ -28,7 +28,7 @@ export default async function getForm(
       throw new Error("Form not found or missing data");
     }
 
-    const form = JSON.parse(response.jsonForm) as formSchemaType;
+    const form = JSON.parse(response.jsonForm) as FormSchemaType;
 
     return form;
   } catch (error) {

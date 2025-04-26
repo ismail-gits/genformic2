@@ -23,7 +23,7 @@ export default function CreateForm() {
   const [userPrompt, setUserPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const route = useRouter();
+  const router = useRouter();
 
   const onGenerateForm = async (): Promise<void> => {
     try {
@@ -35,7 +35,7 @@ export default function CreateForm() {
       console.log("Form created successfully:", dbResponse);
 
       if (dbResponse) {
-        route.push(`/form/edit/${dbResponse.id}`);
+        router.push(`/form/edit/${dbResponse.id}`)
       }
 
       // close the dialog after form creation
