@@ -22,13 +22,13 @@ export default function FormUi({ form }: FormUiType) {
   if (!form) {
     return (
       <div>
-        <Loader className="animate-spin text-purple-600"/>
+        <Loader className="animate-spin text-purple-600" />
       </div>
     );
   }
 
   return (
-    <div className="border p-5 md:w-[600] overflow-y-auto rounded-md">
+    <div className="border p-5 md:w-[600px] overflow-y-auto rounded-md">
       <h2 className="font-bold text-center text-2xl">{form.title}</h2>
       <h2 className="text-sm text-gray-500 text-center">{form.subheading}</h2>
 
@@ -54,10 +54,26 @@ export default function FormUi({ form }: FormUiType) {
                 </Select>
               </div>
             ) : field.type === "checkbox" ? (
-              <div className="flex items-center gap-2">
-                <Checkbox id={field.name} required={field.required} />
-                <Label className="text-sm text-gray-600">{field.label}</Label>
-              </div>
+              field.options ? (
+                <div>
+                  <Label className="text-sm text-gray-600">{field.label}</Label>
+                  {field.options.map(
+                    (option: OptionSchemaType, index: number) => (
+                      <div className="flex items-center gap-2" key={index}>
+                        <Checkbox id={option.label} required={field.required} />
+                        <Label className="text-sm text-gray-600">
+                          {option.label}
+                        </Label>
+                      </div>
+                    )
+                  )}
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <Checkbox id={field.name} required={field.required} />
+                  <Label className="text-sm text-gray-600">{field.label}</Label>
+                </div>
+              )
             ) : field.type === "radio" ? (
               <RadioGroup required={field.required}>
                 <Label className="text-sm text-gray-600">{field.label}</Label>
@@ -75,7 +91,11 @@ export default function FormUi({ form }: FormUiType) {
             ) : field.type === "textarea" ? (
               <div>
                 <Label className="text-sm text-gray-600">{field.label}</Label>
-                <Textarea placeholder={field.placeholder} name={field.name} required={field.required}/>
+                <Textarea
+                  placeholder={field.placeholder}
+                  name={field.name}
+                  required={field.required}
+                />
               </div>
             ) : (
               <div>
