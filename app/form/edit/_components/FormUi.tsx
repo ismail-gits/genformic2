@@ -37,8 +37,10 @@ export default function FormUi({ form }: FormUiType) {
           <div className="my-3">
             {field.type === "select" ? (
               <div>
-                <Label className="text-sm text-gray-600">{field.label}</Label>
-                <Select required={field.required}>
+                <Label htmlFor={field.name} className="text-sm text-gray-600">
+                  {field.label}
+                </Label>
+                <Select name={field.name} required={field.required}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder={field.label} />
                   </SelectTrigger>
@@ -56,12 +58,22 @@ export default function FormUi({ form }: FormUiType) {
             ) : field.type === "checkbox" ? (
               field.options ? (
                 <div>
-                  <Label className="text-sm text-gray-600">{field.label}</Label>
+                  <Label htmlFor={field.name} className="text-sm text-gray-600">
+                    {field.label}
+                  </Label>
                   {field.options.map(
                     (option: OptionSchemaType, index: number) => (
                       <div className="flex items-center gap-2" key={index}>
-                        <Checkbox id={option.label} required={field.required} />
-                        <Label className="text-sm text-gray-600">
+                        <Checkbox
+                          name={field.name}
+                          id={`${field.name}-${option.value}`}
+                          value={option.value}
+                          required={field.required}
+                        />
+                        <Label
+                          htmlFor={`${field.name}-${option.value}`}
+                          className="text-sm text-gray-600"
+                        >
                           {option.label}
                         </Label>
                       </div>
@@ -70,28 +82,47 @@ export default function FormUi({ form }: FormUiType) {
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
-                  <Checkbox id={field.name} required={field.required} />
-                  <Label className="text-sm text-gray-600">{field.label}</Label>
+                  <Checkbox
+                    id={field.name}
+                    name={field.name}
+                    required={field.required}
+                  />
+                  <Label htmlFor={field.name} className="text-sm text-gray-600">
+                    {field.label}
+                  </Label>
                 </div>
               )
             ) : field.type === "radio" ? (
-              <RadioGroup required={field.required}>
-                <Label className="text-sm text-gray-600">{field.label}</Label>
-                {field.options?.map(
-                  (option: OptionSchemaType, index: number) => (
-                    <div className="flex items-center gap-2" key={index}>
-                      <RadioGroupItem value={option.value} />
-                      <Label className="text-sm text-gray-600">
-                        {option.label}
-                      </Label>
-                    </div>
-                  )
-                )}
-              </RadioGroup>
+              <div>
+                <Label htmlFor={field.name} className="text-sm text-gray-600">
+                  {field.label}
+                </Label>
+                <RadioGroup required={field.required}>
+                  {field.options?.map(
+                    (option: OptionSchemaType, index: number) => (
+                      <div className="flex items-center gap-2" key={index}>
+                        <RadioGroupItem
+                          id={`${field.name}-${option.value}`}
+                          value={option.value}
+                        />
+                        <Label
+                          htmlFor={`${field.name}-${option.value}`}
+                          className="text-sm text-gray-600"
+                        >
+                          {option.label}
+                        </Label>
+                      </div>
+                    )
+                  )}
+                </RadioGroup>
+              </div>
             ) : field.type === "textarea" ? (
               <div>
-                <Label className="text-sm text-gray-600">{field.label}</Label>
+                <Label htmlFor={field.name} className="text-sm text-gray-600">
+                  {field.label}
+                </Label>
                 <Textarea
+                  id={field.name}
                   placeholder={field.placeholder}
                   name={field.name}
                   required={field.required}
@@ -99,8 +130,11 @@ export default function FormUi({ form }: FormUiType) {
               </div>
             ) : (
               <div>
-                <Label className="text-sm text-gray-600">{field.label}</Label>
+                <Label htmlFor={field.name} className="text-sm text-gray-600">
+                  {field.label}
+                </Label>
                 <Input
+                  id={field.name}
                   type={field.type}
                   placeholder={field.placeholder}
                   name={field.name}
