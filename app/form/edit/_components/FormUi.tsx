@@ -1,3 +1,5 @@
+"use client";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,19 +14,33 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { FieldSchemaType, FormSchemaType, OptionSchemaType } from "@/lib/zod";
 import { Loader } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
+import FieldEdit from "./FieldEdit";
+import { formAtom } from "@/app/store/atoms/formAtom";
+import { useParams } from "next/navigation";
+import getForm from "@/app/actions/getForm";
+import { useAtom } from "jotai";
 
-type FormUiType = {
-  form: FormSchemaType | null;
-};
+export default function FormUi() {
+  const params = useParams();
+  const [form, setForm] = useAtom(formAtom);
 
-export default function FormUi({ form }: FormUiType) {
+  useEffect(() => {
+    const fetchForm = async () => {
+      if (params?.formId) {
+        try {
+          const currentForm = await getForm(params.formId as string);
+          setForm(currentForm); // Set the fetched form data in the atom
+        } catch (error) {
+          console.error("Error fetching form:", error);
+        }
+      }
+    };
+    fetchForm();
+  }, [params?.formId]);
+
   if (!form) {
-    return (
-      <div>
-        <Loader className="animate-spin text-purple-600" />
-      </div>
-    );
+    return <Loader className="animate-spin text-purple-600" />;
   }
 
   return (
@@ -34,114 +50,140 @@ export default function FormUi({ form }: FormUiType) {
 
       {form.fields.map((field: FieldSchemaType, index: number) => (
         <div key={index}>
-          <div className="my-3">
-            {field.type === "select" ? (
-              <div>
-                <Label htmlFor={field.name} className="text-sm text-gray-600">
-                  {field.label}
-                </Label>
-                <Select name={field.name} required={field.required}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder={field.label} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {field.options?.map(
-                      (option: OptionSchemaType, index: number) => (
-                        <SelectItem key={index} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      )
-                    )}
-                  </SelectContent>
-                </Select>
-              </div>
-            ) : field.type === "checkbox" ? (
-              field.options ? (
+          <div className="my-5 flex items-center gap-2">
+            <div className="w-full">
+              {field.type === "select" ? (
                 <div>
-                  <Label htmlFor={field.name} className="text-sm text-gray-600">
+                  <Label
+                    htmlFor={field.name}
+                    className="text-sm text-gray-600 pb-1"
+                  >
                     {field.label}
                   </Label>
-                  {field.options.map(
-                    (option: OptionSchemaType, index: number) => (
-                      <div className="flex items-center gap-2" key={index}>
-                        <Checkbox
-                          name={field.name}
-                          id={`${field.name}-${option.value}`}
-                          value={option.value}
-                          required={field.required}
-                        />
-                        <Label
-                          htmlFor={`${field.name}-${option.value}`}
-                          className="text-sm text-gray-600"
-                        >
-                          {option.label}
-                        </Label>
-                      </div>
-                    )
-                  )}
+                  <Select name={field.name} required={field.required}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder={field.label} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {field.options?.map(
+                        (option: OptionSchemaType, index: number) => (
+                          <SelectItem key={index} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        )
+                      )}
+                    </SelectContent>
+                  </Select>
                 </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <Checkbox
+              ) : field.type === "checkbox" ? (
+                field.options ? (
+                  <div>
+                    <Label
+                      htmlFor={field.name}
+                      className="text-sm text-gray-600 pb-1"
+                    >
+                      {field.label}
+                    </Label>
+                    {field.options.map(
+                      (option: OptionSchemaType, index: number) => (
+                        <div
+                          className="flex items-center gap-2 pb-1"
+                          key={index}
+                        >
+                          <Checkbox
+                            name={field.name}
+                            id={`${field.name}-${option.value}`}
+                            value={option.value}
+                            required={field.required}
+                          />
+                          <Label
+                            htmlFor={`${field.name}-${option.value}`}
+                            className="text-sm text-gray-600"
+                          >
+                            {option.label}
+                          </Label>
+                        </div>
+                      )
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id={field.name}
+                      name={field.name}
+                      required={field.required}
+                    />
+                    <Label
+                      htmlFor={field.name}
+                      className="text-sm text-gray-600"
+                    >
+                      {field.label}
+                    </Label>
+                  </div>
+                )
+              ) : field.type === "radio" ? (
+                <div>
+                  <Label
+                    htmlFor={field.name}
+                    className="text-sm text-gray-600 pb-1"
+                  >
+                    {field.label}
+                  </Label>
+                  <RadioGroup required={field.required}>
+                    {field.options?.map(
+                      (option: OptionSchemaType, index: number) => (
+                        <div className="flex items-center gap-2" key={index}>
+                          <RadioGroupItem
+                            id={`${field.name}-${option.value}`}
+                            value={option.value}
+                          />
+                          <Label
+                            htmlFor={`${field.name}-${option.value}`}
+                            className="text-sm text-gray-600"
+                          >
+                            {option.label}
+                          </Label>
+                        </div>
+                      )
+                    )}
+                  </RadioGroup>
+                </div>
+              ) : field.type === "textarea" ? (
+                <div>
+                  <Label
+                    htmlFor={field.name}
+                    className="text-sm text-gray-600 pb-1"
+                  >
+                    {field.label}
+                  </Label>
+                  <Textarea
                     id={field.name}
+                    placeholder={field.placeholder}
                     name={field.name}
                     required={field.required}
                   />
-                  <Label htmlFor={field.name} className="text-sm text-gray-600">
+                </div>
+              ) : (
+                <div>
+                  <Label
+                    htmlFor={field.name}
+                    className="text-sm text-gray-600 pb-1"
+                  >
                     {field.label}
                   </Label>
+                  <Input
+                    id={field.name}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    name={field.name}
+                    required={field.required}
+                  />
                 </div>
-              )
-            ) : field.type === "radio" ? (
-              <div>
-                <Label htmlFor={field.name} className="text-sm text-gray-600">
-                  {field.label}
-                </Label>
-                <RadioGroup required={field.required}>
-                  {field.options?.map(
-                    (option: OptionSchemaType, index: number) => (
-                      <div className="flex items-center gap-2" key={index}>
-                        <RadioGroupItem
-                          id={`${field.name}-${option.value}`}
-                          value={option.value}
-                        />
-                        <Label
-                          htmlFor={`${field.name}-${option.value}`}
-                          className="text-sm text-gray-600"
-                        >
-                          {option.label}
-                        </Label>
-                      </div>
-                    )
-                  )}
-                </RadioGroup>
-              </div>
-            ) : field.type === "textarea" ? (
-              <div>
-                <Label htmlFor={field.name} className="text-sm text-gray-600">
-                  {field.label}
-                </Label>
-                <Textarea
-                  id={field.name}
-                  placeholder={field.placeholder}
-                  name={field.name}
-                  required={field.required}
-                />
-              </div>
-            ) : (
-              <div>
-                <Label htmlFor={field.name} className="text-sm text-gray-600">
-                  {field.label}
-                </Label>
-                <Input
-                  id={field.name}
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  name={field.name}
-                  required={field.required}
-                />
-              </div>
-            )}
+              )}
+            </div>
+            <div>
+              <FieldEdit field={field} index={index}/>
+            </div>
           </div>
         </div>
       ))}
