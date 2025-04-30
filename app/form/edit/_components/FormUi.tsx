@@ -62,7 +62,7 @@ export default function FormUi() {
                   </Label>
                   <Select name={field.name} required={field.required}>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder={field.label} />
+                      <SelectValue placeholder={field.placeholder} />
                     </SelectTrigger>
                     <SelectContent>
                       {field.options?.map(
@@ -182,7 +182,7 @@ export default function FormUi() {
               )}
             </div>
             <div>
-              <FieldEdit field={field} index={index}/>
+              <FieldEdit field={field} />
             </div>
           </div>
         </div>

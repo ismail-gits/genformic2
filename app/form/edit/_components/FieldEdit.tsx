@@ -13,18 +13,20 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useAtom } from "jotai";
 import { formAtom } from "@/app/store/atoms/formAtom";
+import updateForm from "@/app/actions/updateForm";
+import { useParams } from "next/navigation";
 
 type FieldEditType = {
   field: FieldSchemaType;
-  index: number;
 };
 
-export default function FieldEdit({ field, index }: FieldEditType) {
+export default function FieldEdit({ field }: FieldEditType) {
+  const params = useParams();
   const [form, setForm] = useAtom(formAtom);
   const [label, setLabel] = useState("");
   const [placeholder, setPlaceholder] = useState("");
 
-  const updateFields = (): void => {
+  const updateFields = async (): Promise<void> => {
     if (!form) {
       throw new Error("No form present");
     }
@@ -39,15 +41,58 @@ export default function FieldEdit({ field, index }: FieldEditType) {
         };
       }
 
-      // if that is not the field then return f
+      // If that is not the field then return f
       return f;
     });
 
-    // update the form atom, with the new fields
+    // Update the form atom, with the new fields
     setForm({
       ...form,
       fields: updatedFields,
     });
+
+    // Update the database
+    try {
+      const formId = params.formId as string;
+      await updateForm({
+        form: {
+          ...form,
+          fields: updatedFields
+        },
+        formId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteField = async (): Promise<void> => {
+    if (!form) {
+      throw new Error("No form present");
+    }
+
+    // Delete the specific field
+    const updatedFields = form.fields.filter((f) => f.name !== field.name);
+
+    // Update the form atom, with the new fields
+    setForm({
+      ...form,
+      fields: updatedFields,
+    });
+
+    // Update the database
+    try {
+      const formId = params.formId as string;
+      await updateForm({
+        form: {
+          ...form,
+          fields: updatedFields
+        },
+        formId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -86,7 +131,10 @@ export default function FieldEdit({ field, index }: FieldEditType) {
         </PopoverContent>
       </Popover>
 
-      <Trash2 className="h-5 w-5 text-red-500 cursor-pointer" />
+      <Trash2
+        className="h-5 w-5 text-red-500 cursor-pointer"
+        onClick={deleteField}
+      />
     </div>
   );
 }

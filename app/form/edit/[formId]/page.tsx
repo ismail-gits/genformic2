@@ -5,10 +5,10 @@ import { Provider } from "jotai";
 import { currentUser } from "@clerk/nextjs/server";
 
 export default function EditForm() {
-  const user = currentUser()
+  const user = currentUser();
 
   if (!user) {
-    throw new Error("Unauthorized")
+    throw new Error("Unauthorized");
   }
 
   return (
