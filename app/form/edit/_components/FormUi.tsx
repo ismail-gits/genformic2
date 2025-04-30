@@ -20,10 +20,15 @@ import { formAtom } from "@/app/store/atoms/formAtom";
 import { useParams } from "next/navigation";
 import getForm from "@/app/actions/getForm";
 import { useAtom } from "jotai";
+import { themeAtom } from "@/app/store/atoms/themeAtom";
+import { Button } from "@/components/ui/button";
 
 export default function FormUi() {
   const params = useParams();
   const [form, setForm] = useAtom(formAtom);
+  const [selectedTheme, setSelectedTheme] = useAtom(themeAtom);
+
+  console.log("Selected Theme: " + selectedTheme)
 
   useEffect(() => {
     const fetchForm = async () => {
@@ -44,7 +49,10 @@ export default function FormUi() {
   }
 
   return (
-    <div className="border p-5 md:w-[600px] overflow-y-auto rounded-md">
+    <div
+      className="border p-5 md:w-[600px] overflow-y-auto rounded-lg"
+      data-theme={selectedTheme}
+    >
       <h2 className="font-bold text-center text-2xl">{form.title}</h2>
       <h2 className="text-sm text-gray-500 text-center">{form.subheading}</h2>
 
@@ -59,10 +67,13 @@ export default function FormUi() {
                     className="text-sm text-gray-600 pb-1"
                   >
                     {field.label}
+                    {field.required && <span className="text-red-500">*</span>}
                   </Label>
                   <Select name={field.name} required={field.required}>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder={field.placeholder} />
+                      <SelectValue
+                        placeholder={field.placeholder || field.label}
+                      />
                     </SelectTrigger>
                     <SelectContent>
                       {field.options?.map(
@@ -83,6 +94,9 @@ export default function FormUi() {
                       className="text-sm text-gray-600 pb-1"
                     >
                       {field.label}
+                      {field.required && (
+                        <span className="text-red-500">*</span>
+                      )}
                     </Label>
                     {field.options.map(
                       (option: OptionSchemaType, index: number) => (
@@ -118,6 +132,9 @@ export default function FormUi() {
                       className="text-sm text-gray-600"
                     >
                       {field.label}
+                      {field.required && (
+                        <span className="text-red-500">*</span>
+                      )}
                     </Label>
                   </div>
                 )
@@ -128,6 +145,7 @@ export default function FormUi() {
                     className="text-sm text-gray-600 pb-1"
                   >
                     {field.label}
+                    {field.required && <span className="text-red-500">*</span>}
                   </Label>
                   <RadioGroup required={field.required}>
                     {field.options?.map(
@@ -155,6 +173,7 @@ export default function FormUi() {
                     className="text-sm text-gray-600 pb-1"
                   >
                     {field.label}
+                    {field.required && <span className="text-red-500">*</span>}
                   </Label>
                   <Textarea
                     id={field.name}
@@ -170,6 +189,7 @@ export default function FormUi() {
                     className="text-sm text-gray-600 pb-1"
                   >
                     {field.label}
+                    {field.required && <span className="text-red-500">*</span>}
                   </Label>
                   <Input
                     id={field.name}
@@ -187,6 +207,7 @@ export default function FormUi() {
           </div>
         </div>
       ))}
+      <button className="btn btn-primary">Submit</button>
     </div>
   );
 }

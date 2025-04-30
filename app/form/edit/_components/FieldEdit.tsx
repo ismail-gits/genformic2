@@ -15,6 +15,18 @@ import { useAtom } from "jotai";
 import { formAtom } from "@/app/store/atoms/formAtom";
 import updateForm from "@/app/actions/updateForm";
 import { useParams } from "next/navigation";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
 
 type FieldEditType = {
   field: FieldSchemaType;
@@ -25,8 +37,11 @@ export default function FieldEdit({ field }: FieldEditType) {
   const [form, setForm] = useAtom(formAtom);
   const [label, setLabel] = useState("");
   const [placeholder, setPlaceholder] = useState("");
+  const [popoverOpen, setPopoverOpen] = useState(false)
 
   const updateFields = async (): Promise<void> => {
+    setPopoverOpen(false)
+
     if (!form) {
       throw new Error("No form present");
     }
@@ -51,16 +66,19 @@ export default function FieldEdit({ field }: FieldEditType) {
       fields: updatedFields,
     });
 
+    toast("Updated!!!")
+
     // Update the database
     try {
       const formId = params.formId as string;
       await updateForm({
         form: {
           ...form,
-          fields: updatedFields
+          fields: updatedFields,
         },
         formId,
       });
+      
     } catch (error) {
       console.log(error);
     }
@@ -80,13 +98,15 @@ export default function FieldEdit({ field }: FieldEditType) {
       fields: updatedFields,
     });
 
+    toast("Deleted!!!")
+
     // Update the database
     try {
       const formId = params.formId as string;
       await updateForm({
         form: {
           ...form,
-          fields: updatedFields
+          fields: updatedFields,
         },
         formId,
       });
@@ -97,9 +117,9 @@ export default function FieldEdit({ field }: FieldEditType) {
 
   return (
     <div className="flex gap-2">
-      <Popover>
+      <Popover open={popoverOpen}>
         <PopoverTrigger asChild>
-          <Edit className="h-5 w-5 text-gray-500 cursor-pointer" />
+          <Edit className="h-5 w-5 text-gray-500 cursor-pointer" onClick={() => setPopoverOpen(true)}/>
         </PopoverTrigger>
         <PopoverContent className="space-y-3">
           <h2 className="font-bold text-xl">Edit Field</h2>
@@ -131,10 +151,25 @@ export default function FieldEdit({ field }: FieldEditType) {
         </PopoverContent>
       </Popover>
 
-      <Trash2
-        className="h-5 w-5 text-red-500 cursor-pointer"
-        onClick={deleteField}
-      />
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <Trash2
+            className="h-5 w-5 text-red-500 cursor-pointer"
+          />
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are your absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action will delete the field <span className="font-bold">{field.label}</span> permanently
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction className="bg-red-500" onClick={deleteField}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
