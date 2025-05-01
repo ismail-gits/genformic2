@@ -38,63 +38,39 @@ export default function FieldEdit({ field }: FieldEditType) {
   const [label, setLabel] = useState("");
   const [placeholder, setPlaceholder] = useState("");
 
-  const updateFields = async (): Promise<void> => {
+  const updateFields = async (type: "update" | "delete"): Promise<void> => {
     if (!form) {
       throw new Error("No form present");
     }
+
+    let updatedFields = form.fields;
 
     // Update the specific field in the form
-    const updatedFields = form.fields.map((f) => {
-      if (f.name === field.name) {
-        return {
-          ...f,
-          label: label || f.label,
-          placeholder: placeholder || f.placeholder,
-        };
-      }
+    if (type === "update") {
+      updatedFields = form.fields.map((f) => {
+        if (f.name === field.name) {
+          return {
+            ...f,
+            label: label || f.label,
+            placeholder: placeholder || f.placeholder,
+          };
+        }
 
-      // If that is not the field then return f
-      return f;
-    });
-
-    // Update the form atom, with the new fields
-    setForm({
-      ...form,
-      fields: updatedFields,
-    });
-
-    toast("Updated!!!");
-
-    // Update the database
-    try {
-      const formId = params.formId as string;
-      await updateForm({
-        form: {
-          ...form,
-          fields: updatedFields,
-        },
-        formId,
+        // If that is not the field then return f
+        return f;
       });
-    } catch (error) {
-      console.log(error);
+      toast("Updated!!!");
+    } else if (type === "delete") {
+      // Delete the specific field
+      updatedFields = form.fields.filter((f) => f.name !== field.name);
+      toast("Deleted!!!");
     }
-  };
-
-  const deleteField = async (): Promise<void> => {
-    if (!form) {
-      throw new Error("No form present");
-    }
-
-    // Delete the specific field
-    const updatedFields = form.fields.filter((f) => f.name !== field.name);
 
     // Update the form atom, with the new fields
     setForm({
       ...form,
       fields: updatedFields,
     });
-
-    toast("Deleted!!!");
 
     // Update the database
     try {
@@ -140,7 +116,7 @@ export default function FieldEdit({ field }: FieldEditType) {
             />
           </div>
           <div className="pt-2 flex">
-            <Button size={"sm"} onClick={updateFields}>
+            <Button size={"sm"} onClick={() => updateFields("update")}>
               Update
             </Button>
           </div>
@@ -161,7 +137,7 @@ export default function FieldEdit({ field }: FieldEditType) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-red-500" onClick={deleteField}>
+            <AlertDialogAction className="bg-red-500" onClick={() => updateFields("delete")}>
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>

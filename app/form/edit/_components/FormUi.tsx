@@ -21,13 +21,13 @@ import { useParams } from "next/navigation";
 import getForm from "@/app/actions/getForm";
 import { useAtom } from "jotai";
 import { formThemeAtom } from "@/app/store/atoms/formThemeAtom";
+import { formBackgroundAtom } from "@/app/store/atoms/formBackgroundAtom";
 
 export default function FormUi() {
   const params = useParams();
   const [form, setForm] = useAtom(formAtom);
   const [selectedTheme, setSelectedTheme] = useAtom(formThemeAtom);
-
-  console.log("Selected Theme: " + selectedTheme)
+  const [selectedBackground, setSelectedBackground] = useAtom(formBackgroundAtom)
 
   useEffect(() => {
     const fetchForm = async () => {

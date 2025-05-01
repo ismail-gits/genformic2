@@ -1,5 +1,8 @@
+"use client"
+
 import { bgGradients, BgGradientsType } from "@/app/_data/GradientBg";
 import { themes, ThemeType } from "@/app/_data/Themes";
+import updateThemeOrBackground from "@/app/actions/updateThemeOrBackground";
 import { formBackgroundAtom } from "@/app/store/atoms/formBackgroundAtom";
 import { formThemeAtom } from "@/app/store/atoms/formThemeAtom";
 import {
@@ -10,20 +13,26 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAtom } from "jotai";
-import { useState } from "react";
+import { useParams } from "next/navigation";
 
 export default function Controller() {
   const [selectedTheme, setSelectedTheme] = useAtom(formThemeAtom);
-  const [selectedBackground, setSelectedBackground] = useAtom(formBackgroundAtom)
-  const [showMore, setShowMore] = useState(false);
+  const [selectedBackground, setSelectedBackground] = useAtom(formBackgroundAtom);
+  const param = useParams()
+  const formId = param.formId as string
 
   return (
     <div>
       {/* Theme Selection Controller */}
       <h2 className="my-2 font-bold text-modern">Select Font Theme</h2>
       <Select
-        onValueChange={(value: string) => {
+        onValueChange={async (value: string) => {
           setSelectedTheme(value);
+          await updateThemeOrBackground({
+            type: "formTheme",
+            formId: formId,
+            value: value
+          })
         }}
       >
         <SelectTrigger className="w-full">
@@ -69,7 +78,14 @@ export default function Controller() {
           <div
             key={index}
             className="w-full h-[70px] rounded-md shadow hover:ring-2 hover:ring-gray-300 border hover:scale-105 transition duration-200 cursor-pointer flex items-center justify-center"
-            onClick={() => setSelectedBackground(bg.gradient)}
+            onClick={async () => {
+              setSelectedBackground(bg.gradient)
+              await updateThemeOrBackground({
+                type: "formBackground",
+                formId: formId,
+                value: bg.gradient
+              })
+            }}
             style={{ background: bg.gradient }}
           >
             {bg.name === "None" && bg.name}

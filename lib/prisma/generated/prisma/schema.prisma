@@ -15,8 +15,10 @@ datasource db {
 }
 
 model Forms {
-  id        String   @id @default(uuid())
-  ownerId   String
-  jsonForm  Json
-  createdAt DateTime @default(now())
+  id             String   @id @default(uuid())
+  ownerId        String
+  jsonForm       String
+  createdAt      DateTime @default(now())
+  formTheme      String   @default("light")
+  formBackground String   @default("")
 }
