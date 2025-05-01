@@ -12,14 +12,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { FieldSchemaType, FormSchemaType, OptionSchemaType } from "@/lib/zod";
+import { FieldSchemaType, OptionSchemaType } from "@/lib/zod";
 import { Loader } from "lucide-react";
 import React, { useEffect } from "react";
 import FieldEdit from "./FieldEdit";
 import { formAtom } from "@/app/store/atoms/formAtom";
 import { useParams } from "next/navigation";
 import getForm from "@/app/actions/getForm";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { formThemeAtom } from "@/app/store/atoms/formThemeAtom";
 import { formBackgroundAtom } from "@/app/store/atoms/formBackgroundAtom";
 
@@ -27,14 +27,21 @@ export default function FormUi() {
   const params = useParams();
   const [form, setForm] = useAtom(formAtom);
   const [selectedTheme, setSelectedTheme] = useAtom(formThemeAtom);
-  const [selectedBackground, setSelectedBackground] = useAtom(formBackgroundAtom)
+  const setSelectedBackground = useSetAtom(formBackgroundAtom);
 
   useEffect(() => {
     const fetchForm = async () => {
       if (params?.formId) {
         try {
-          const currentForm = await getForm(params.formId as string);
-          setForm(currentForm); // Set the fetched form data in the atom
+          const response = await getForm(params.formId as string);
+
+          if (!response) {
+            throw new Error("Couldn't find form");
+          }
+
+          setForm(response.jsonForm); // Set the fetched form data in the atom
+          setSelectedTheme(response.formTheme);
+          setSelectedBackground(response.formBackground);
         } catch (error) {
           console.error("Error fetching form:", error);
         }

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { bgGradients, BgGradientsType } from "@/app/_data/GradientBg";
 import { themes, ThemeType } from "@/app/_data/Themes";
@@ -12,14 +12,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { useParams } from "next/navigation";
 
 export default function Controller() {
-  const [selectedTheme, setSelectedTheme] = useAtom(formThemeAtom);
-  const [selectedBackground, setSelectedBackground] = useAtom(formBackgroundAtom);
-  const param = useParams()
-  const formId = param.formId as string
+  const setSelectedTheme = useSetAtom(formThemeAtom);
+  const setSelectedBackground = useSetAtom(formBackgroundAtom);
+  const param = useParams();
+  const formId = param.formId as string;
 
   return (
     <div>
@@ -31,8 +31,8 @@ export default function Controller() {
           await updateThemeOrBackground({
             type: "formTheme",
             formId: formId,
-            value: value
-          })
+            value: value,
+          });
         }}
       >
         <SelectTrigger className="w-full">
@@ -79,12 +79,12 @@ export default function Controller() {
             key={index}
             className="w-full h-[70px] rounded-md shadow hover:ring-2 hover:ring-gray-300 border hover:scale-105 transition duration-200 cursor-pointer flex items-center justify-center"
             onClick={async () => {
-              setSelectedBackground(bg.gradient)
+              setSelectedBackground(bg.gradient);
               await updateThemeOrBackground({
                 type: "formBackground",
                 formId: formId,
-                value: bg.gradient
-              })
+                value: bg.gradient,
+              });
             }}
             style={{ background: bg.gradient }}
           >

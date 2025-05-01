@@ -4,9 +4,15 @@ import prisma from "@/lib/prisma/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { FormSchemaType } from "@/lib/zod";
 
+type GetFormReturnType = {
+  formTheme: string;
+  formBackground: string;
+  jsonForm: FormSchemaType;
+};
+
 export default async function getForm(
   formId: string
-): Promise<FormSchemaType | null> {
+): Promise<GetFormReturnType | null> {
   const user = await currentUser();
 
   if (!user) {
@@ -21,6 +27,8 @@ export default async function getForm(
       },
       select: {
         jsonForm: true,
+        formBackground: true,
+        formTheme: true,
       },
     });
 
@@ -28,9 +36,11 @@ export default async function getForm(
       throw new Error("Form not found or missing data");
     }
 
-    const form = JSON.parse(response.jsonForm) as FormSchemaType;
-
-    return form;
+    return {
+      formBackground: response.formBackground,
+      formTheme: response.formTheme,
+      jsonForm: JSON.parse(response.jsonForm) as FormSchemaType,
+    };
   } catch (error) {
     console.log("Error fetching form from database:", error);
     return null;

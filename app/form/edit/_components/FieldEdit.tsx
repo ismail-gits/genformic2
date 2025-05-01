@@ -137,7 +137,10 @@ export default function FieldEdit({ field }: FieldEditType) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-red-500" onClick={() => updateFields("delete")}>
+            <AlertDialogAction
+              className="bg-red-500"
+              onClick={() => updateFields("delete")}
+            >
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>
