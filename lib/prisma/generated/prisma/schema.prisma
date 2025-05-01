@@ -21,4 +21,5 @@ model Forms {
   createdAt      DateTime @default(now())
   formTheme      String   @default("light")
   formBackground String   @default("")
+  formStyle      String   @default("")
 }

@@ -41,9 +41,11 @@ export default function FormUi() {
             throw new Error("Couldn't find form");
           }
 
-          setForm(response.jsonForm); // Set the fetched form data in the atom
+          // Set the fetched form data in the atom
+          setForm(response.jsonForm); 
           setSelectedTheme(response.formTheme);
           setSelectedBackground(response.formBackground);
+          setSelectedStyle(response.formStyle);
         } catch (error) {
           console.error("Error fetching form:", error);
         }
@@ -57,8 +59,12 @@ export default function FormUi() {
   }
 
   const formBorderStyle = {
-    [selectedStyle.key === 'boxshadow' ? 'boxShadow' : selectedStyle.key === 'border' ? 'border' : selectedStyle.key]: selectedStyle.value
-  }
+    [selectedStyle.key === "boxshadow"
+      ? "boxShadow"
+      : selectedStyle.key === "border"
+      ? "border"
+      : selectedStyle.key]: selectedStyle.value,
+  };
 
   return (
     <div

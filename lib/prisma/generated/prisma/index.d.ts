@@ -886,6 +886,7 @@ export namespace Prisma {
     createdAt: Date | null
     formTheme: string | null
     formBackground: string | null
+    formStyle: string | null
   }
 
   export type FormsMaxAggregateOutputType = {
@@ -895,6 +896,7 @@ export namespace Prisma {
     createdAt: Date | null
     formTheme: string | null
     formBackground: string | null
+    formStyle: string | null
   }
 
   export type FormsCountAggregateOutputType = {
@@ -904,6 +906,7 @@ export namespace Prisma {
     createdAt: number
     formTheme: number
     formBackground: number
+    formStyle: number
     _all: number
   }
 
@@ -915,6 +918,7 @@ export namespace Prisma {
     createdAt?: true
     formTheme?: true
     formBackground?: true
+    formStyle?: true
   }
 
   export type FormsMaxAggregateInputType = {
@@ -924,6 +928,7 @@ export namespace Prisma {
     createdAt?: true
     formTheme?: true
     formBackground?: true
+    formStyle?: true
   }
 
   export type FormsCountAggregateInputType = {
@@ -933,6 +938,7 @@ export namespace Prisma {
     createdAt?: true
     formTheme?: true
     formBackground?: true
+    formStyle?: true
     _all?: true
   }
 
@@ -1015,6 +1021,7 @@ export namespace Prisma {
     createdAt: Date
     formTheme: string
     formBackground: string
+    formStyle: string
     _count: FormsCountAggregateOutputType | null
     _min: FormsMinAggregateOutputType | null
     _max: FormsMaxAggregateOutputType | null
@@ -1041,6 +1048,7 @@ export namespace Prisma {
     createdAt?: boolean
     formTheme?: boolean
     formBackground?: boolean
+    formStyle?: boolean
   }, ExtArgs["result"]["forms"]>
 
   export type FormsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1050,6 +1058,7 @@ export namespace Prisma {
     createdAt?: boolean
     formTheme?: boolean
     formBackground?: boolean
+    formStyle?: boolean
   }, ExtArgs["result"]["forms"]>
 
   export type FormsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1059,6 +1068,7 @@ export namespace Prisma {
     createdAt?: boolean
     formTheme?: boolean
     formBackground?: boolean
+    formStyle?: boolean
   }, ExtArgs["result"]["forms"]>
 
   export type FormsSelectScalar = {
@@ -1068,9 +1078,10 @@ export namespace Prisma {
     createdAt?: boolean
     formTheme?: boolean
     formBackground?: boolean
+    formStyle?: boolean
   }
 
-  export type FormsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ownerId" | "jsonForm" | "createdAt" | "formTheme" | "formBackground", ExtArgs["result"]["forms"]>
+  export type FormsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ownerId" | "jsonForm" | "createdAt" | "formTheme" | "formBackground" | "formStyle", ExtArgs["result"]["forms"]>
 
   export type $FormsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Forms"
@@ -1082,6 +1093,7 @@ export namespace Prisma {
       createdAt: Date
       formTheme: string
       formBackground: string
+      formStyle: string
     }, ExtArgs["result"]["forms"]>
     composites: {}
   }
@@ -1511,6 +1523,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Forms", 'DateTime'>
     readonly formTheme: FieldRef<"Forms", 'String'>
     readonly formBackground: FieldRef<"Forms", 'String'>
+    readonly formStyle: FieldRef<"Forms", 'String'>
   }
     
 
@@ -1897,7 +1910,8 @@ export namespace Prisma {
     jsonForm: 'jsonForm',
     createdAt: 'createdAt',
     formTheme: 'formTheme',
-    formBackground: 'formBackground'
+    formBackground: 'formBackground',
+    formStyle: 'formStyle'
   };
 
   export type FormsScalarFieldEnum = (typeof FormsScalarFieldEnum)[keyof typeof FormsScalarFieldEnum]
@@ -1979,6 +1993,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Forms"> | Date | string
     formTheme?: StringFilter<"Forms"> | string
     formBackground?: StringFilter<"Forms"> | string
+    formStyle?: StringFilter<"Forms"> | string
   }
 
   export type FormsOrderByWithRelationInput = {
@@ -1988,6 +2003,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     formTheme?: SortOrder
     formBackground?: SortOrder
+    formStyle?: SortOrder
   }
 
   export type FormsWhereUniqueInput = Prisma.AtLeast<{
@@ -2000,6 +2016,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Forms"> | Date | string
     formTheme?: StringFilter<"Forms"> | string
     formBackground?: StringFilter<"Forms"> | string
+    formStyle?: StringFilter<"Forms"> | string
   }, "id">
 
   export type FormsOrderByWithAggregationInput = {
@@ -2009,6 +2026,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     formTheme?: SortOrder
     formBackground?: SortOrder
+    formStyle?: SortOrder
     _count?: FormsCountOrderByAggregateInput
     _max?: FormsMaxOrderByAggregateInput
     _min?: FormsMinOrderByAggregateInput
@@ -2024,6 +2042,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Forms"> | Date | string
     formTheme?: StringWithAggregatesFilter<"Forms"> | string
     formBackground?: StringWithAggregatesFilter<"Forms"> | string
+    formStyle?: StringWithAggregatesFilter<"Forms"> | string
   }
 
   export type FormsCreateInput = {
@@ -2033,6 +2052,7 @@ export namespace Prisma {
     createdAt?: Date | string
     formTheme?: string
     formBackground?: string
+    formStyle?: string
   }
 
   export type FormsUncheckedCreateInput = {
@@ -2042,6 +2062,7 @@ export namespace Prisma {
     createdAt?: Date | string
     formTheme?: string
     formBackground?: string
+    formStyle?: string
   }
 
   export type FormsUpdateInput = {
@@ -2051,6 +2072,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
+    formStyle?: StringFieldUpdateOperationsInput | string
   }
 
   export type FormsUncheckedUpdateInput = {
@@ -2060,6 +2082,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
+    formStyle?: StringFieldUpdateOperationsInput | string
   }
 
   export type FormsCreateManyInput = {
@@ -2069,6 +2092,7 @@ export namespace Prisma {
     createdAt?: Date | string
     formTheme?: string
     formBackground?: string
+    formStyle?: string
   }
 
   export type FormsUpdateManyMutationInput = {
@@ -2078,6 +2102,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
+    formStyle?: StringFieldUpdateOperationsInput | string
   }
 
   export type FormsUncheckedUpdateManyInput = {
@@ -2087,6 +2112,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
+    formStyle?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2122,6 +2148,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     formTheme?: SortOrder
     formBackground?: SortOrder
+    formStyle?: SortOrder
   }
 
   export type FormsMaxOrderByAggregateInput = {
@@ -2131,6 +2158,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     formTheme?: SortOrder
     formBackground?: SortOrder
+    formStyle?: SortOrder
   }
 
   export type FormsMinOrderByAggregateInput = {
@@ -2140,6 +2168,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     formTheme?: SortOrder
     formBackground?: SortOrder
+    formStyle?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {

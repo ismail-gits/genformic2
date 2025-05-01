@@ -3,17 +3,17 @@
 import { currentUser } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma/prisma";
 
-type UpdateThemeOrBackgroundType = {
-  type: "formTheme" | "formBackground";
+type ChangeFormUIType = {
+  type: "formTheme" | "formBackground" | "formStyle";
   value: string;
   formId: string;
 };
 
-export default async function updateThemeOrBackground({
+export default async function changeFormUI({
   type,
   value,
   formId,
-}: UpdateThemeOrBackgroundType) {
+}: ChangeFormUIType) {
   const user = await currentUser();
 
   if (!user) {

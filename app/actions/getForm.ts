@@ -3,10 +3,12 @@
 import prisma from "@/lib/prisma/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { FormSchemaType } from "@/lib/zod";
+import { StylesType } from "../_data/Styles";
 
 type GetFormReturnType = {
   formTheme: string;
   formBackground: string;
+  formStyle: StylesType;
   jsonForm: FormSchemaType;
 };
 
@@ -28,6 +30,7 @@ export default async function getForm(
       select: {
         jsonForm: true,
         formBackground: true,
+        formStyle: true,
         formTheme: true,
       },
     });
@@ -39,6 +42,7 @@ export default async function getForm(
     return {
       formBackground: response.formBackground,
       formTheme: response.formTheme,
+      formStyle: JSON.parse(response.formStyle),
       jsonForm: JSON.parse(response.jsonForm) as FormSchemaType,
     };
   } catch (error) {

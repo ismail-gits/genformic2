@@ -3,10 +3,12 @@
 import { bgGradients, BgGradientsType } from "@/app/_data/GradientBg";
 import { styles } from "@/app/_data/Styles";
 import { themes, ThemeType } from "@/app/_data/Themes";
-import updateThemeOrBackground from "@/app/actions/updateThemeOrBackground";
+import changeFormUI from "@/app/actions/changeFormUI";
+("@/app/actions/changeFormUI");
 import { formBackgroundAtom } from "@/app/store/atoms/formBackgroundAtom";
 import { formStyleAtom } from "@/app/store/atoms/formStyleAtom";
 import { formThemeAtom } from "@/app/store/atoms/formThemeAtom";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -17,11 +19,14 @@ import {
 import { useAtom, useSetAtom } from "jotai";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 
 export default function Controller() {
   const setSelectedTheme = useSetAtom(formThemeAtom);
-  const [selectedBackground, setSelectedBackground] = useAtom(formBackgroundAtom);
-  const [selectedStyle, setSelectedStyle] = useAtom(formStyleAtom)
+  const [selectedBackground, setSelectedBackground] =
+    useAtom(formBackgroundAtom);
+  const [selectedStyle, setSelectedStyle] = useAtom(formStyleAtom);
+  const [showMore, setShowMore] = useState(false);
   const param = useParams();
   const formId = param.formId as string;
 
@@ -32,7 +37,7 @@ export default function Controller() {
       <Select
         onValueChange={async (value: string) => {
           setSelectedTheme(value);
-          await updateThemeOrBackground({
+          await changeFormUI({
             type: "formTheme",
             formId: formId,
             value: value,
@@ -77,15 +82,16 @@ export default function Controller() {
       <h2 className="mt-4 my-2 font-bold text-modern">
         Select Background Theme{" "}
       </h2>
-      <div className="grid grid-cols-3 gap-5 max-h-[180px] overflow-y-auto overflow-x-hidden p-1">
+      <div className={`grid grid-cols-3 gap-5 p-1 transition-all duration-300
+        ${showMore ? "max-h-[270px] overflow-y-auto overflow-x-hidden" : "max-h-[180px]"}`}>
         {bgGradients.map((bg: BgGradientsType, index: number) => (
-          <div
+          (showMore || index < 6) && (<div
             key={index}
             className={`w-full h-[70px] rounded-md shadow hover:ring-2 hover:ring-gray-300 border hover:scale-105 transition-all duration-200 cursor-pointer flex items-center justify-center
             ${selectedBackground === bg.gradient && "ring-gray-500 ring-2"}`}
             onClick={async () => {
               setSelectedBackground(bg.gradient);
-              await updateThemeOrBackground({
+              await changeFormUI({
                 type: "formBackground",
                 formId: formId,
                 value: bg.gradient,
@@ -94,24 +100,43 @@ export default function Controller() {
             style={{ background: bg.gradient }}
           >
             {bg.name === "None" && bg.name}
-          </div>
+          </div>)
         ))}
       </div>
+      <Button
+        variant={"ghost"}
+        size={"sm"}
+        className="w-full my-1 cursor-pointer flex justify-center shadow border"
+        onClick={() => setShowMore(!showMore)}
+      >
+        {showMore ? 'Show Less' : 'Show More'}
+      </Button>
 
       {/* Style Selection Controller */}
-      <h2 className="mt-4 my-2 font-bold text-modern">Select Border Style</h2>
-      <div className="grid grid-cols-3 gap-5">
+      <h2 className="mt-2 my-2 font-bold text-modern">Select Border Style</h2>
+      <div className="grid grid-cols-3 gap-5 p-1">
         {styles.map((style, index) => (
-          <div key={index} onClick={async () => {
-            setSelectedStyle(style)
-          }}>
+          <div
+            key={index}
+            onClick={async () => {
+              setSelectedStyle(style);
+              changeFormUI({
+                type: "formStyle",
+                formId: formId,
+                value: JSON.stringify(style),
+              });
+            }}
+          >
             <Image
               alt={style.name}
               src={style.img}
               width={600}
               height={80}
               className={`rounded-lg cursor-pointer hover:ring-2 hover:ring-gray-300 border hover:scale-105 transition-all duration-200 shadow
-              ${selectedStyle === style && 'ring-gray-500 ring-2 hover:ring-gray-500'}`}
+              ${
+                selectedStyle.name === style.name &&
+                "ring-gray-500 ring-2 hover:ring-gray-500"
+              }`}
             />
             <h2 className="text-center">{style.name}</h2>
           </div>
