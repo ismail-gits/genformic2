@@ -24,7 +24,11 @@ import { formThemeAtom } from "@/app/store/atoms/formThemeAtom";
 import { formBackgroundAtom } from "@/app/store/atoms/formBackgroundAtom";
 import { formStyleAtom } from "@/app/store/atoms/formStyleAtom";
 
-export default function FormUi() {
+type FormUiType = {
+  mode: "edit" | "live"
+}
+
+export default function FormUi({mode}: FormUiType) {
   const params = useParams();
   const [form, setForm] = useAtom(formAtom);
   const [selectedTheme, setSelectedTheme] = useAtom(formThemeAtom);
@@ -35,14 +39,18 @@ export default function FormUi() {
     const fetchForm = async () => {
       if (params?.formId) {
         try {
-          const response = await getForm(params.formId as string);
+          const formId = params.formId as string;
+          const response = await getForm({
+            mode,
+            formId
+          });
 
           if (!response) {
-            throw new Error("Couldn't find form");
+            throw new Error("Form not found");
           }
 
           // Set the fetched form data in the atom
-          setForm(response.jsonForm); 
+          setForm(response.jsonForm);
           setSelectedTheme(response.formTheme);
           setSelectedBackground(response.formBackground);
           setSelectedStyle(response.formStyle);
@@ -221,7 +229,7 @@ export default function FormUi() {
               )}
             </div>
             <div>
-              <FieldEdit field={field} />
+              {mode === 'edit' && <FieldEdit field={field} />}
             </div>
           </div>
         </div>

@@ -5,6 +5,11 @@ import { currentUser } from "@clerk/nextjs/server";
 import { FormSchemaType } from "@/lib/zod";
 import { StylesType } from "../_data/Styles";
 
+type GetFormType = {
+  mode: "edit" | "live";
+  formId: string;
+};
+
 type GetFormReturnType = {
   formTheme: string;
   formBackground: string;
@@ -12,20 +17,27 @@ type GetFormReturnType = {
   jsonForm: FormSchemaType;
 };
 
-export default async function getForm(
-  formId: string
-): Promise<GetFormReturnType | null> {
-  const user = await currentUser();
+export default async function getForm({
+  mode,
+  formId,
+}: GetFormType): Promise<GetFormReturnType | null> {
+  let ownerId: string | undefined;
 
-  if (!user) {
-    throw new Error("Unauthorized");
+  if (mode === "edit") {
+    const user = await currentUser();
+
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
+
+    ownerId = user.id;
   }
 
   try {
     const response = await prisma.forms.findUnique({
       where: {
         id: formId,
-        ownerId: user.id,
+        ...(ownerId ? { ownerId } : {}),
       },
       select: {
         jsonForm: true,
@@ -42,7 +54,7 @@ export default async function getForm(
     return {
       formBackground: response.formBackground,
       formTheme: response.formTheme,
-      formStyle: JSON.parse(response.formStyle),
+      formStyle: JSON.parse(response.formStyle) as StylesType,
       jsonForm: JSON.parse(response.jsonForm) as FormSchemaType,
     };
   } catch (error) {
