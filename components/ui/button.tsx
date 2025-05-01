@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-gradient-to-r from-purple-500 to-blue-600 text-white font-medium py-2 px-4 shadow-xs hover:from-blue-700 hover:to-purple-600 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer focus:outline-none focus:ring-purple-300 active:bg-blue-700",
+          "bg-gradient-to-r from-purple-500 to-blue-600 text-white font-medium py-2 px-4 shadow-xs hover:from-blue-700 hover:to-purple-600 transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer focus:outline-none focus:ring-purple-300 active:bg-blue-700",
         destructive:
           "bg-gradient-to-b from-red-500 to-red-700 hover:from-red-700 text-white shadow-xs focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 cursor-pointer",
         outline:
