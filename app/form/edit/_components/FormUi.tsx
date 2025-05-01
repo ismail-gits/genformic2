@@ -20,13 +20,12 @@ import { formAtom } from "@/app/store/atoms/formAtom";
 import { useParams } from "next/navigation";
 import getForm from "@/app/actions/getForm";
 import { useAtom } from "jotai";
-import { themeAtom } from "@/app/store/atoms/themeAtom";
-import { Button } from "@/components/ui/button";
+import { formThemeAtom } from "@/app/store/atoms/formThemeAtom";
 
 export default function FormUi() {
   const params = useParams();
   const [form, setForm] = useAtom(formAtom);
-  const [selectedTheme, setSelectedTheme] = useAtom(themeAtom);
+  const [selectedTheme, setSelectedTheme] = useAtom(formThemeAtom);
 
   console.log("Selected Theme: " + selectedTheme)
 
@@ -50,7 +49,7 @@ export default function FormUi() {
 
   return (
     <div
-      className="border p-5 md:w-[600px] overflow-y-auto rounded-lg"
+      className="border p-5 md:w-[600px] rounded-lg"
       data-theme={selectedTheme}
     >
       <h2 className="font-bold text-center text-2xl">{form.title}</h2>

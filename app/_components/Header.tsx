@@ -5,9 +5,16 @@ import React from "react";
 import { Button } from "../../components/ui/button";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { Loader } from "lucide-react";
 
 function Header() {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
+
+  if (!isLoaded) {
+    return <div className="flex items-center justify-center h-screen">
+      <Loader className="animate-spin text-purple-500"/>
+    </div>
+  }
 
   return (
     <div className="p-5 border shadow-sm">

@@ -1,6 +1,7 @@
 import { bgGradients, BgGradientsType } from "@/app/_data/GradientBg";
 import { themes, ThemeType } from "@/app/_data/Themes";
-import { themeAtom } from "@/app/store/atoms/themeAtom";
+import { formBackgroundAtom } from "@/app/store/atoms/formBackgroundAtom";
+import { formThemeAtom } from "@/app/store/atoms/formThemeAtom";
 import {
   Select,
   SelectContent,
@@ -9,14 +10,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAtom } from "jotai";
+import { useState } from "react";
 
 export default function Controller() {
-  const [selectedTheme, setSelectedTheme] = useAtom(themeAtom);
+  const [selectedTheme, setSelectedTheme] = useAtom(formThemeAtom);
+  const [selectedBackground, setSelectedBackground] = useAtom(formBackgroundAtom)
+  const [showMore, setShowMore] = useState(false);
 
   return (
     <div>
       {/* Theme Selection Controller */}
-      <h2 className="my-1">Select Font Theme</h2>
+      <h2 className="my-2 font-bold text-modern">Select Font Theme</h2>
       <Select
         onValueChange={(value: string) => {
           setSelectedTheme(value);
@@ -57,14 +61,19 @@ export default function Controller() {
       </Select>
 
       {/* Background Selection Controller */}
-      <h2 className="mt-8 my-1">Select Background Theme </h2>
-      <div className="grid grid-cols-3 gap-2">
+      <h2 className="mt-8 my-2 font-bold text-modern">
+        Select Background Theme{" "}
+      </h2>
+      <div className="grid grid-cols-3 gap-5 max-h-[300px] overflow-y-auto overflow-x-hidden p-1">
         {bgGradients.map((bg: BgGradientsType, index: number) => (
           <div
             key={index}
-            className="w-full h-[50px] rounded-md shadow border cursor-pointer"
+            className="w-full h-[70px] rounded-md shadow hover:ring-2 hover:ring-gray-300 border hover:scale-105 transition duration-200 cursor-pointer flex items-center justify-center"
+            onClick={() => setSelectedBackground(bg.gradient)}
             style={{ background: bg.gradient }}
-          ></div>
+          >
+            {bg.name === "None" && bg.name}
+          </div>
         ))}
       </div>
     </div>

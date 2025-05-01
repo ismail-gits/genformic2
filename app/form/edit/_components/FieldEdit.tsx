@@ -37,11 +37,8 @@ export default function FieldEdit({ field }: FieldEditType) {
   const [form, setForm] = useAtom(formAtom);
   const [label, setLabel] = useState("");
   const [placeholder, setPlaceholder] = useState("");
-  const [popoverOpen, setPopoverOpen] = useState(false)
 
   const updateFields = async (): Promise<void> => {
-    setPopoverOpen(false)
-
     if (!form) {
       throw new Error("No form present");
     }
@@ -66,7 +63,7 @@ export default function FieldEdit({ field }: FieldEditType) {
       fields: updatedFields,
     });
 
-    toast("Updated!!!")
+    toast("Updated!!!");
 
     // Update the database
     try {
@@ -78,7 +75,6 @@ export default function FieldEdit({ field }: FieldEditType) {
         },
         formId,
       });
-      
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +94,7 @@ export default function FieldEdit({ field }: FieldEditType) {
       fields: updatedFields,
     });
 
-    toast("Deleted!!!")
+    toast("Deleted!!!");
 
     // Update the database
     try {
@@ -117,9 +113,9 @@ export default function FieldEdit({ field }: FieldEditType) {
 
   return (
     <div className="flex gap-2">
-      <Popover open={popoverOpen}>
+      <Popover>
         <PopoverTrigger asChild>
-          <Edit className="h-5 w-5 text-gray-500 cursor-pointer" onClick={() => setPopoverOpen(true)}/>
+          <Edit className="h-5 w-5 text-gray-500 cursor-pointer" />
         </PopoverTrigger>
         <PopoverContent className="space-y-3">
           <h2 className="font-bold text-xl">Edit Field</h2>
@@ -153,20 +149,21 @@ export default function FieldEdit({ field }: FieldEditType) {
 
       <AlertDialog>
         <AlertDialogTrigger>
-          <Trash2
-            className="h-5 w-5 text-red-500 cursor-pointer"
-          />
+          <Trash2 className="h-5 w-5 text-red-500 cursor-pointer" />
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are your absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action will delete the field <span className="font-bold">{field.label}</span> permanently
+              This action will delete the field{" "}
+              <span className="font-bold">{field.label}</span> permanently
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-red-500" onClick={deleteField}>Delete</AlertDialogAction>
+            <AlertDialogAction className="bg-red-500" onClick={deleteField}>
+              Delete
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
