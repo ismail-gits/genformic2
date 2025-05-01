@@ -22,12 +22,14 @@ import getForm from "@/app/actions/getForm";
 import { useAtom, useSetAtom } from "jotai";
 import { formThemeAtom } from "@/app/store/atoms/formThemeAtom";
 import { formBackgroundAtom } from "@/app/store/atoms/formBackgroundAtom";
+import { formStyleAtom } from "@/app/store/atoms/formStyleAtom";
 
 export default function FormUi() {
   const params = useParams();
   const [form, setForm] = useAtom(formAtom);
   const [selectedTheme, setSelectedTheme] = useAtom(formThemeAtom);
   const setSelectedBackground = useSetAtom(formBackgroundAtom);
+  const [selectedStyle, setSelectedStyle] = useAtom(formStyleAtom);
 
   useEffect(() => {
     const fetchForm = async () => {
@@ -54,10 +56,15 @@ export default function FormUi() {
     return <Loader className="animate-spin text-purple-600" />;
   }
 
+  const formBorderStyle = {
+    [selectedStyle.key === 'boxshadow' ? 'boxShadow' : selectedStyle.key === 'border' ? 'border' : selectedStyle.key]: selectedStyle.value
+  }
+
   return (
     <div
       className="border p-5 md:w-[600px] rounded-lg"
       data-theme={selectedTheme}
+      style={formBorderStyle}
     >
       <h2 className="font-bold text-center text-2xl">{form.title}</h2>
       <h2 className="text-sm text-gray-500 text-center">{form.subheading}</h2>
