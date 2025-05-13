@@ -14,7 +14,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { FieldSchemaType, OptionSchemaType } from "@/lib/zod";
 import { Loader } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FieldEdit from "./FieldEdit";
 import { formAtom } from "@/app/store/atoms/formAtom";
 import { useParams } from "next/navigation";
@@ -25,15 +25,16 @@ import { formBackgroundAtom } from "@/app/store/atoms/formBackgroundAtom";
 import { formStyleAtom } from "@/app/store/atoms/formStyleAtom";
 
 type FormUiType = {
-  mode: "edit" | "live"
-}
+  mode: "edit" | "live";
+};
 
-export default function FormUi({mode}: FormUiType) {
+export default function FormUi({ mode }: FormUiType) {
   const params = useParams();
   const [form, setForm] = useAtom(formAtom);
   const [selectedTheme, setSelectedTheme] = useAtom(formThemeAtom);
   const setSelectedBackground = useSetAtom(formBackgroundAtom);
   const [selectedStyle, setSelectedStyle] = useAtom(formStyleAtom);
+  const [formData, setFormData] = useState<{ [key: string]: any }>({});
 
   useEffect(() => {
     const fetchForm = async () => {
@@ -42,7 +43,7 @@ export default function FormUi({mode}: FormUiType) {
           const formId = params.formId as string;
           const response = await getForm({
             mode,
-            formId
+            formId,
           });
 
           if (!response) {
@@ -60,7 +61,7 @@ export default function FormUi({mode}: FormUiType) {
       }
     };
     fetchForm();
-  }, [params?.formId]);
+  }, [params?.formId, mode]);
 
   if (!form) {
     return <Loader className="animate-spin text-purple-600" />;
@@ -75,7 +76,11 @@ export default function FormUi({mode}: FormUiType) {
   };
 
   return (
-    <div
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log(formData);
+      }}
       className="border p-5 md:w-[600px] rounded-lg"
       data-theme={selectedTheme}
       style={formBorderStyle}
@@ -96,7 +101,16 @@ export default function FormUi({mode}: FormUiType) {
                     {field.label}
                     {field.required && <span className="text-red-500">*</span>}
                   </Label>
-                  <Select name={field.name} required={field.required}>
+                  <Select
+                    name={field.name}
+                    required={field.required}
+                    onValueChange={(value) => {
+                      setFormData({
+                        ...formData,
+                        [field.label]: value,
+                      });
+                    }}
+                  >
                     <SelectTrigger className="w-full">
                       <SelectValue
                         placeholder={field.placeholder || field.label}
@@ -136,6 +150,19 @@ export default function FormUi({mode}: FormUiType) {
                             id={`${field.name}-${option.value}`}
                             value={option.value}
                             required={field.required}
+                            onCheckedChange={(value) => {
+                              setFormData({
+                                ...formData,
+                                [field.name]: value
+                                  ? [
+                                      ...(formData[field.name] || []),
+                                      option.value,
+                                    ]
+                                  : (formData[field.name] || []).filter(
+                                      (value: string) => value !== option.value
+                                    ),
+                              });
+                            }}
                           />
                           <Label
                             htmlFor={`${field.name}-${option.value}`}
@@ -153,6 +180,12 @@ export default function FormUi({mode}: FormUiType) {
                       id={field.name}
                       name={field.name}
                       required={field.required}
+                      onCheckedChange={(value) => {
+                        setFormData({
+                          ...formData,
+                          [field.label]: value,
+                        });
+                      }}
                     />
                     <Label
                       htmlFor={field.name}
@@ -174,7 +207,15 @@ export default function FormUi({mode}: FormUiType) {
                     {field.label}
                     {field.required && <span className="text-red-500">*</span>}
                   </Label>
-                  <RadioGroup required={field.required}>
+                  <RadioGroup
+                    required={field.required}
+                    onValueChange={(value) => {
+                      setFormData({
+                        ...formData,
+                        [field.label]: value,
+                      });
+                    }}
+                  >
                     {field.options?.map(
                       (option: OptionSchemaType, index: number) => (
                         <div className="flex items-center gap-2" key={index}>
@@ -207,6 +248,12 @@ export default function FormUi({mode}: FormUiType) {
                     placeholder={field.placeholder}
                     name={field.name}
                     required={field.required}
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        [field.label]: e.target.value,
+                      });
+                    }}
                   />
                 </div>
               ) : (
@@ -224,17 +271,24 @@ export default function FormUi({mode}: FormUiType) {
                     placeholder={field.placeholder}
                     name={field.name}
                     required={field.required}
+                    onChange={(e) => {
+                      const { name, value } = e.target;
+                      setFormData({
+                        ...formData,
+                        [name]: value,
+                      });
+                    }}
                   />
                 </div>
               )}
             </div>
-            <div>
-              {mode === 'edit' && <FieldEdit field={field} />}
-            </div>
+            <div>{mode === "edit" && <FieldEdit field={field} />}</div>
           </div>
         </div>
       ))}
-      <button className="btn btn-primary">Submit</button>
-    </div>
+      <button type="submit" className="btn btn-primary">
+        Submit
+      </button>
+    </form>
   );
 }

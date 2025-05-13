@@ -62,7 +62,7 @@ export default function EditForm() {
           className="md:col-span-2 border rounded-lg p-10 min-h-screen flex items-center justify-center"
           style={{ backgroundImage: selectedBackground }}
         >
-          <FormUi mode="edit"/>
+          <FormUi mode="edit" />
         </div>
       </div>
     </div>
