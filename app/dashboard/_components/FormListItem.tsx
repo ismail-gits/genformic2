@@ -16,6 +16,7 @@ import { Edit, Share2, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { toast } from "sonner";
+import { RWebShare } from "react-web-share";
 
 type FormListItemType = {
   form: FormSchemaType;
@@ -78,14 +79,24 @@ export default function FormListItem({
       <h2 className="text-sm text-gray-500">{form.subheading}</h2>
       <hr className="my-4" />
       <div className="flex gap-4">
-        <Button
-          variant={"outline"}
-          size={"sm"}
-          className="rounded-4xl hover:scale-105 transition-all duration-200 text-green-500 hover:text-green-600"
+        <RWebShare
+          data={{
+            text: form.subheading+", Build your form with AI using Genformic in seconds.",
+            url: process.env.NEXT_PUBLIC_BASE_URL+"/form/live/"+formId,
+            title: form.title,
+          }}
+          onClick={() => "Shared successfully!"}
         >
-          <Share2 className="text-green-500 hover:text-green-600" />
-          Share
-        </Button>
+          <Button
+            variant={"outline"}
+            size={"sm"}
+            className="rounded-4xl hover:scale-105 transition-all duration-200 text-green-500 hover:text-green-600"
+          >
+            <Share2 className="text-green-500 hover:text-green-600" />
+            Share
+          </Button>
+        </RWebShare>
+
         <Link href={`/form/edit/${formId}`} target="_blank">
           <Button
             variant={"outline"}
