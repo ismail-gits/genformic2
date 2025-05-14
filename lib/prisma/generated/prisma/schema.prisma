@@ -31,5 +31,5 @@ model UserReponses {
   jsonResponse String
   createdAt    DateTime @default(now())
   createdBy    String   @default("anonymous")
-  form         Forms    @relation(fields: [formId], references: [id])
+  form         Forms    @relation(fields: [formId], references: [id], onDelete: Cascade)
 }

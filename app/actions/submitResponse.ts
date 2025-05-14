@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { currentUser } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma/prisma";
@@ -9,27 +9,35 @@ type SubmitResponseType = {
 };
 
 type SubmitResponseReturnType = {
-  id: string,
-  formId: string
-}
+  id: string;
+  formId: string;
+};
 
-export default async function submitResponse({formId, jsonResponse}: SubmitResponseType): Promise<SubmitResponseReturnType> {
-  const user = await currentUser()
+export default async function submitResponse({
+  formId,
+  jsonResponse,
+}: SubmitResponseType): Promise<SubmitResponseReturnType | null> {
+  const user = await currentUser();
 
   if (!user) {
-    throw new Error("Unauthorized")
+    throw new Error("Unauthorized");
   }
 
-  const result = await prisma.userReponses.create({
-    data: {
-      formId,
-      jsonResponse
-    },
-    select: {
-      id: true,
-      formId: true
-    }
-  })
+  try {
+    const result = await prisma.userReponses.create({
+      data: {
+        formId,
+        jsonResponse,
+      },
+      select: {
+        id: true,
+        formId: true,
+      },
+    });
 
-  return result
+    return result;
+  } catch (error) {
+    console.log("Error while submitting response: " + error)
+    return null
+  }
 }

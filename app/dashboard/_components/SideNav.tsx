@@ -50,10 +50,6 @@ const menuList: MenuListType[] = [
 export default function SideNav() {
   const path = usePathname();
 
-  useEffect(() => {
-    // console.log(path)
-  }, [path]);
-
   return (
     <div className="h-screen shadow-md border">
       <div className="p-5">

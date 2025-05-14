@@ -22,7 +22,7 @@ function Header() {
 
   return (
     !path.includes("/form/live") && (
-      <div className="p-5 border shadow-sm">
+      <div className="p-5 border shadow-sm sticky top-0 z-50 bg-white">
         <div className="flex items-center justify-between">
           <Link href={"/"}>
             <Image

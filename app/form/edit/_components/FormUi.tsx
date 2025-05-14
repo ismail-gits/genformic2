@@ -37,9 +37,9 @@ export default function FormUi({ mode }: FormUiType) {
   const setSelectedBackground = useSetAtom(formBackgroundAtom);
   const [selectedStyle, setSelectedStyle] = useAtom(formStyleAtom);
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
-  const [formSubmit, setFormSubmit] = useState(false)
-  const formId = params.formId as string
-  const formRef = useRef<HTMLFormElement | null>(null)
+  const [formSubmit, setFormSubmit] = useState(false);
+  const formId = params.formId as string;
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
     const fetchForm = async () => {
@@ -82,24 +82,23 @@ export default function FormUi({ mode }: FormUiType) {
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setFormSubmit(true)
+    setFormSubmit(true);
 
     const result = await submitResponse({
       formId,
       jsonResponse: JSON.stringify(formData),
     });
 
-    setFormSubmit(false)
+    setFormSubmit(false);
 
     if (result) {
-      formRef.current?.reset()
-      toast("Response submitted successfully !")
-    }
-    else {
-      toast("Error while submitting your response !")
+      formRef.current?.reset();
+      toast("Response submitted successfully !");
+    } else {
+      toast("Error while submitting your response !");
     }
 
-    console.log(result)
+    console.log(result);
   };
 
   return (
@@ -312,7 +311,7 @@ export default function FormUi({ mode }: FormUiType) {
         </div>
       ))}
       <button type="submit" className="btn btn-primary">
-        {formSubmit ? <Loader className="animate-spin"/> : "Submit"}
+        {formSubmit ? <Loader className="animate-spin" /> : "Submit"}
       </button>
     </form>
   );
