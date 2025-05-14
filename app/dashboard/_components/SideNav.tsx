@@ -10,6 +10,7 @@ import {
   ShieldPlus,
   Sparkles,
 } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -31,19 +32,19 @@ const menuList: MenuListType[] = [
     id: 2,
     name: "Responses",
     icon: MessageSquareQuote,
-    path: "/responses",
+    path: "/dashboard/responses",
   },
   {
     id: 3,
     name: "Analytics",
     icon: ChartNoAxesCombined,
-    path: "/analytics",
+    path: "/dashboard/analytics",
   },
   {
     id: 4,
     name: "Upgrade",
     icon: ShieldPlus,
-    path: "/upgrade",
+    path: "/dashboard/upgrade",
   },
 ];
 
@@ -54,7 +55,8 @@ export default function SideNav() {
     <div className="h-screen shadow-md border">
       <div className="p-5">
         {menuList.map((menu: MenuListType, index: number) => (
-          <h2
+          <Link
+            href={menu.path}
             key={index}
             className={`flex items-center gap-3 p-4 mb-2 text-gray-700 hover:bg-modern hover:text-white rounded-lg cursor-pointer ${
               path === menu.path && "bg-modern text-white scale-105"
@@ -62,7 +64,7 @@ export default function SideNav() {
           >
             <menu.icon />
             {menu.name}
-          </h2>
+          </Link>
         ))}
       </div>
       <div className="fixed bottom-6 p-6 w-64">

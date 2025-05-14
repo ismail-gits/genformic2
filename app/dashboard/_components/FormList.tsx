@@ -3,8 +3,13 @@
 import getAllForms, { GetAllFormsReturnType } from "@/app/actions/getAllForms";
 import { useEffect, useState } from "react";
 import FormListItem from "./FormListItem";
+import FormListResponses from "./FormListResponses";
 
-export default function FormList() {
+type FormListType = {
+  mode: "forms" | "responses";
+};
+
+export default function FormList({ mode }: FormListType) {
   const [forms, setForms] = useState<GetAllFormsReturnType[]>([]);
 
   useEffect(() => {
@@ -29,13 +34,20 @@ export default function FormList() {
     <div className="mt-5 grid grid-cols-2 lg:grid-cols-3 gap-5">
       {forms.map((form: GetAllFormsReturnType, index: number) => (
         <div key={index}>
-          <FormListItem
-            form={JSON.parse(form.jsonForm)}
-            formId={form.id}
-            onDelete={() => {
-              setForms((forms) => forms.filter((f) => f.id !== form.id));
-            }}
-          />
+          {mode === "forms" ? (
+            <FormListItem
+              form={JSON.parse(form.jsonForm)}
+              formId={form.id}
+              onDelete={() => {
+                setForms((forms) => forms.filter((f) => f.id !== form.id));
+              }}
+            />
+          ) : (
+            <FormListResponses
+              form={JSON.parse(form.jsonForm)}
+              formId={form.id}
+            />
+          )}
         </div>
       ))}
     </div>

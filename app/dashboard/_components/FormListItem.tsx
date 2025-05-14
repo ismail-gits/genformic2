@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { FormSchemaType } from "@/lib/zod";
-import { Edit, Share2, Trash2 } from "lucide-react";
+import { Edit, Share2, SquareArrowOutUpRight, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { toast } from "sonner";
@@ -75,14 +75,16 @@ export default function FormListItem({
           </AlertDialogContent>
         </AlertDialog>
       </div>
-      <h2 className="text-lg">{form.title}</h2>
+      <h2 className="text-xl mb-2">{form.title}</h2>
       <h2 className="text-sm text-gray-500">{form.subheading}</h2>
       <hr className="my-4" />
-      <div className="flex gap-4">
+      <div className="flex justify-between">
         <RWebShare
           data={{
-            text: form.subheading+", Build your form with AI using Genformic in seconds.",
-            url: process.env.NEXT_PUBLIC_BASE_URL+"/form/live/"+formId,
+            text:
+              form.subheading +
+              ", Build your form with AI using Genformic in seconds.",
+            url: process.env.NEXT_PUBLIC_BASE_URL + "/form/live/" + formId,
             title: form.title,
           }}
           onClick={() => "Shared successfully!"}
@@ -96,6 +98,17 @@ export default function FormListItem({
             Share
           </Button>
         </RWebShare>
+
+        <Link href={`/form/live/${formId}`} target="_blank">
+          <Button
+            variant={"outline"}
+            size={"sm"}
+            className="flex gap-2 items-center justify-center rounded-4xl hover:scale-105 transition-all duration-200 text-modern"
+          >
+            <SquareArrowOutUpRight className="text-purple-500 hover:text-purple-600" />
+            View Live
+          </Button>
+        </Link>
 
         <Link href={`/form/edit/${formId}`} target="_blank">
           <Button

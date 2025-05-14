@@ -11,7 +11,7 @@ export default function page() {
       </h2>
 
       {/* List of forms */}
-      <FormList/>
+      <FormList mode="forms"/>
     </div>
   );
 }
