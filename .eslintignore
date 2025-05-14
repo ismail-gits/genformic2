@@ -1,0 +1,2 @@
+# Ignore Prisma files
+lib/prisma/
