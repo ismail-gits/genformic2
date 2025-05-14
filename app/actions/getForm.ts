@@ -15,6 +15,7 @@ type GetFormReturnType = {
   formBackground: string;
   formStyle: StylesType;
   jsonForm: FormSchemaType;
+  enableSignIn: boolean;
 };
 
 export default async function getForm({
@@ -44,6 +45,7 @@ export default async function getForm({
         formBackground: true,
         formStyle: true,
         formTheme: true,
+        enableSignIn: true,
       },
     });
 
@@ -56,6 +58,7 @@ export default async function getForm({
       formTheme: response.formTheme,
       formStyle: JSON.parse(response.formStyle) as StylesType,
       jsonForm: JSON.parse(response.jsonForm) as FormSchemaType,
+      enableSignIn: response.enableSignIn
     };
   } catch (error) {
     console.log("Error fetching form from database:", error);

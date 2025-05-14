@@ -22,6 +22,7 @@ model Forms {
   formTheme      String         @default("light")
   formBackground String         @default("")
   formStyle      String         @default("{}")
+  enableSignIn   Boolean        @default(false)
   responses      UserReponses[]
 }
 
@@ -31,5 +32,5 @@ model UserReponses {
   jsonResponse String
   createdAt    DateTime @default(now())
   createdBy    String   @default("anonymous")
-  form Forms @relation(fields: [formId], references: [id], onDelete: Cascade)
+  form         Forms    @relation(fields: [formId], references: [id], onDelete: Cascade)
 }

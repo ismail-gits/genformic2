@@ -15,9 +15,9 @@ import { formAtom } from "@/app/store/atoms/formAtom";
 export default function EditForm() {
   const { isSignedIn, isLoaded } = useUser();
   const [selectedBackground] = useAtom(formBackgroundAtom);
-  const [form] = useAtom(formAtom)
+  const [form] = useAtom(formAtom);
   const param = useParams();
-  const router = useRouter()
+  const router = useRouter();
 
   if (!isLoaded) {
     return (
@@ -28,16 +28,20 @@ export default function EditForm() {
   }
 
   if (!isSignedIn) {
-    throw new Error("Unauthorized");
+    
   }
 
   return (
     <div className="px-6 h-screen">
       <div className="flex justify-between items-center">
         <h2 className="flex items-center gap-2 my-6 hover:font-bold hover:text-lg transition-all duration-200">
-          <Button variant={"outline"} className="rounded-4xl hover:scale-105" onClick={() => {
-            router.back()
-          }}>
+          <Button
+            variant={"outline"}
+            className="rounded-4xl hover:scale-105"
+            onClick={() => {
+              router.back();
+            }}
+          >
             <ArrowLeft className="text-purple-600" /> Back
           </Button>
         </h2>
@@ -56,7 +60,8 @@ export default function EditForm() {
               text:
                 form?.subheading +
                 ", Build your form with AI using Genformic in seconds.",
-              url: process.env.NEXT_PUBLIC_BASE_URL + "/form/live/" + param.formId,
+              url:
+                process.env.NEXT_PUBLIC_BASE_URL + "/form/live/" + param.formId,
               title: form?.title,
             }}
             onClick={() => "Shared successfully!"}

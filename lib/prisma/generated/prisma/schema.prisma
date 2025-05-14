@@ -22,6 +22,7 @@ model Forms {
   formTheme      String         @default("light")
   formBackground String         @default("")
   formStyle      String         @default("{}")
+  enableSignIn   Boolean        @default(false)
   responses      UserReponses[]
 }
 

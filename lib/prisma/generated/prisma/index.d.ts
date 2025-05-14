@@ -1008,6 +1008,7 @@ export namespace Prisma {
     formTheme: string | null
     formBackground: string | null
     formStyle: string | null
+    enableSignIn: boolean | null
   }
 
   export type FormsMaxAggregateOutputType = {
@@ -1018,6 +1019,7 @@ export namespace Prisma {
     formTheme: string | null
     formBackground: string | null
     formStyle: string | null
+    enableSignIn: boolean | null
   }
 
   export type FormsCountAggregateOutputType = {
@@ -1028,6 +1030,7 @@ export namespace Prisma {
     formTheme: number
     formBackground: number
     formStyle: number
+    enableSignIn: number
     _all: number
   }
 
@@ -1040,6 +1043,7 @@ export namespace Prisma {
     formTheme?: true
     formBackground?: true
     formStyle?: true
+    enableSignIn?: true
   }
 
   export type FormsMaxAggregateInputType = {
@@ -1050,6 +1054,7 @@ export namespace Prisma {
     formTheme?: true
     formBackground?: true
     formStyle?: true
+    enableSignIn?: true
   }
 
   export type FormsCountAggregateInputType = {
@@ -1060,6 +1065,7 @@ export namespace Prisma {
     formTheme?: true
     formBackground?: true
     formStyle?: true
+    enableSignIn?: true
     _all?: true
   }
 
@@ -1143,6 +1149,7 @@ export namespace Prisma {
     formTheme: string
     formBackground: string
     formStyle: string
+    enableSignIn: boolean
     _count: FormsCountAggregateOutputType | null
     _min: FormsMinAggregateOutputType | null
     _max: FormsMaxAggregateOutputType | null
@@ -1170,6 +1177,7 @@ export namespace Prisma {
     formTheme?: boolean
     formBackground?: boolean
     formStyle?: boolean
+    enableSignIn?: boolean
     responses?: boolean | Forms$responsesArgs<ExtArgs>
     _count?: boolean | FormsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["forms"]>
@@ -1182,6 +1190,7 @@ export namespace Prisma {
     formTheme?: boolean
     formBackground?: boolean
     formStyle?: boolean
+    enableSignIn?: boolean
   }, ExtArgs["result"]["forms"]>
 
   export type FormsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1192,6 +1201,7 @@ export namespace Prisma {
     formTheme?: boolean
     formBackground?: boolean
     formStyle?: boolean
+    enableSignIn?: boolean
   }, ExtArgs["result"]["forms"]>
 
   export type FormsSelectScalar = {
@@ -1202,9 +1212,10 @@ export namespace Prisma {
     formTheme?: boolean
     formBackground?: boolean
     formStyle?: boolean
+    enableSignIn?: boolean
   }
 
-  export type FormsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ownerId" | "jsonForm" | "createdAt" | "formTheme" | "formBackground" | "formStyle", ExtArgs["result"]["forms"]>
+  export type FormsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ownerId" | "jsonForm" | "createdAt" | "formTheme" | "formBackground" | "formStyle" | "enableSignIn", ExtArgs["result"]["forms"]>
   export type FormsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     responses?: boolean | Forms$responsesArgs<ExtArgs>
     _count?: boolean | FormsCountOutputTypeDefaultArgs<ExtArgs>
@@ -1225,6 +1236,7 @@ export namespace Prisma {
       formTheme: string
       formBackground: string
       formStyle: string
+      enableSignIn: boolean
     }, ExtArgs["result"]["forms"]>
     composites: {}
   }
@@ -1656,6 +1668,7 @@ export namespace Prisma {
     readonly formTheme: FieldRef<"Forms", 'String'>
     readonly formBackground: FieldRef<"Forms", 'String'>
     readonly formStyle: FieldRef<"Forms", 'String'>
+    readonly enableSignIn: FieldRef<"Forms", 'Boolean'>
   }
     
 
@@ -3165,7 +3178,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     formTheme: 'formTheme',
     formBackground: 'formBackground',
-    formStyle: 'formStyle'
+    formStyle: 'formStyle',
+    enableSignIn: 'enableSignIn'
   };
 
   export type FormsScalarFieldEnum = (typeof FormsScalarFieldEnum)[keyof typeof FormsScalarFieldEnum]
@@ -3232,6 +3246,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -3259,6 +3280,7 @@ export namespace Prisma {
     formTheme?: StringFilter<"Forms"> | string
     formBackground?: StringFilter<"Forms"> | string
     formStyle?: StringFilter<"Forms"> | string
+    enableSignIn?: BoolFilter<"Forms"> | boolean
     responses?: UserReponsesListRelationFilter
   }
 
@@ -3270,6 +3292,7 @@ export namespace Prisma {
     formTheme?: SortOrder
     formBackground?: SortOrder
     formStyle?: SortOrder
+    enableSignIn?: SortOrder
     responses?: UserReponsesOrderByRelationAggregateInput
   }
 
@@ -3284,6 +3307,7 @@ export namespace Prisma {
     formTheme?: StringFilter<"Forms"> | string
     formBackground?: StringFilter<"Forms"> | string
     formStyle?: StringFilter<"Forms"> | string
+    enableSignIn?: BoolFilter<"Forms"> | boolean
     responses?: UserReponsesListRelationFilter
   }, "id">
 
@@ -3295,6 +3319,7 @@ export namespace Prisma {
     formTheme?: SortOrder
     formBackground?: SortOrder
     formStyle?: SortOrder
+    enableSignIn?: SortOrder
     _count?: FormsCountOrderByAggregateInput
     _max?: FormsMaxOrderByAggregateInput
     _min?: FormsMinOrderByAggregateInput
@@ -3311,6 +3336,7 @@ export namespace Prisma {
     formTheme?: StringWithAggregatesFilter<"Forms"> | string
     formBackground?: StringWithAggregatesFilter<"Forms"> | string
     formStyle?: StringWithAggregatesFilter<"Forms"> | string
+    enableSignIn?: BoolWithAggregatesFilter<"Forms"> | boolean
   }
 
   export type UserReponsesWhereInput = {
@@ -3376,6 +3402,7 @@ export namespace Prisma {
     formTheme?: string
     formBackground?: string
     formStyle?: string
+    enableSignIn?: boolean
     responses?: UserReponsesCreateNestedManyWithoutFormInput
   }
 
@@ -3387,6 +3414,7 @@ export namespace Prisma {
     formTheme?: string
     formBackground?: string
     formStyle?: string
+    enableSignIn?: boolean
     responses?: UserReponsesUncheckedCreateNestedManyWithoutFormInput
   }
 
@@ -3398,6 +3426,7 @@ export namespace Prisma {
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
     formStyle?: StringFieldUpdateOperationsInput | string
+    enableSignIn?: BoolFieldUpdateOperationsInput | boolean
     responses?: UserReponsesUpdateManyWithoutFormNestedInput
   }
 
@@ -3409,6 +3438,7 @@ export namespace Prisma {
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
     formStyle?: StringFieldUpdateOperationsInput | string
+    enableSignIn?: BoolFieldUpdateOperationsInput | boolean
     responses?: UserReponsesUncheckedUpdateManyWithoutFormNestedInput
   }
 
@@ -3420,6 +3450,7 @@ export namespace Prisma {
     formTheme?: string
     formBackground?: string
     formStyle?: string
+    enableSignIn?: boolean
   }
 
   export type FormsUpdateManyMutationInput = {
@@ -3430,6 +3461,7 @@ export namespace Prisma {
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
     formStyle?: StringFieldUpdateOperationsInput | string
+    enableSignIn?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FormsUncheckedUpdateManyInput = {
@@ -3440,6 +3472,7 @@ export namespace Prisma {
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
     formStyle?: StringFieldUpdateOperationsInput | string
+    enableSignIn?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserReponsesCreateInput = {
@@ -3523,6 +3556,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type UserReponsesListRelationFilter = {
     every?: UserReponsesWhereInput
     some?: UserReponsesWhereInput
@@ -3541,6 +3579,7 @@ export namespace Prisma {
     formTheme?: SortOrder
     formBackground?: SortOrder
     formStyle?: SortOrder
+    enableSignIn?: SortOrder
   }
 
   export type FormsMaxOrderByAggregateInput = {
@@ -3551,6 +3590,7 @@ export namespace Prisma {
     formTheme?: SortOrder
     formBackground?: SortOrder
     formStyle?: SortOrder
+    enableSignIn?: SortOrder
   }
 
   export type FormsMinOrderByAggregateInput = {
@@ -3561,6 +3601,7 @@ export namespace Prisma {
     formTheme?: SortOrder
     formBackground?: SortOrder
     formStyle?: SortOrder
+    enableSignIn?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3593,6 +3634,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type FormsScalarRelationFilter = {
@@ -3644,6 +3693,10 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type UserReponsesUpdateManyWithoutFormNestedInput = {
@@ -3713,6 +3766,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3753,6 +3811,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type UserReponsesCreateWithoutFormInput = {
@@ -3814,6 +3880,7 @@ export namespace Prisma {
     formTheme?: string
     formBackground?: string
     formStyle?: string
+    enableSignIn?: boolean
   }
 
   export type FormsUncheckedCreateWithoutResponsesInput = {
@@ -3824,6 +3891,7 @@ export namespace Prisma {
     formTheme?: string
     formBackground?: string
     formStyle?: string
+    enableSignIn?: boolean
   }
 
   export type FormsCreateOrConnectWithoutResponsesInput = {
@@ -3850,6 +3918,7 @@ export namespace Prisma {
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
     formStyle?: StringFieldUpdateOperationsInput | string
+    enableSignIn?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FormsUncheckedUpdateWithoutResponsesInput = {
@@ -3860,6 +3929,7 @@ export namespace Prisma {
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
     formStyle?: StringFieldUpdateOperationsInput | string
+    enableSignIn?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserReponsesCreateManyFormInput = {

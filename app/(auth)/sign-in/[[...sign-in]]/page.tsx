@@ -16,7 +16,7 @@ export default function page() {
         </div>
         <div className="col-span-1">
           <div className="flex justify-center items-center h-full pb-20 hover:scale-105 duration-300">
-            <SignIn />
+            <SignIn fallbackRedirectUrl={"/"} />
           </div>
         </div>
       </div>

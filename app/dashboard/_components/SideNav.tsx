@@ -52,7 +52,7 @@ const menuList: MenuListType[] = [
 
 export default function SideNav() {
   const path = usePathname();
-  const formCount = useAtomValue(formCountAtom)
+  const formCount = useAtomValue(formCountAtom);
 
   return (
     <div className="h-screen shadow-md border">
@@ -79,7 +79,9 @@ export default function SideNav() {
           <h2 className="mt-2 text-gray-600">
             <strong>{formCount}</strong> out of <strong>3</strong> Credits Used
           </h2>
-          <h2 className="mt-3 text-center bg-gradient-to-r from-purple-200 to-blue-200 hover:from-blue-200 hover:to-purple-200 px-2 py-1 text-gray-600 rounded-md">Upgrade to generate more</h2>
+          <h2 className="mt-3 text-center bg-gradient-to-r from-purple-200 to-blue-200 hover:from-blue-200 hover:to-purple-200 px-2 py-1 text-gray-600 rounded-md">
+            Upgrade to generate more
+          </h2>
         </div>
       </div>
     </div>

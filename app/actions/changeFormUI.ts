@@ -4,8 +4,8 @@ import { currentUser } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma/prisma";
 
 type ChangeFormUIType = {
-  type: "formTheme" | "formBackground" | "formStyle";
-  value: string;
+  type: "formTheme" | "formBackground" | "formStyle" | "enableSignIn";
+  value: string | boolean;
   formId: string;
 };
 

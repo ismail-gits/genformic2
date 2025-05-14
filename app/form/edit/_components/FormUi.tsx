@@ -17,14 +17,17 @@ import { Loader } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import FieldEdit from "./FieldEdit";
 import { formAtom } from "@/app/store/atoms/formAtom";
-import { useParams } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import getForm from "@/app/actions/getForm";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { formThemeAtom } from "@/app/store/atoms/formThemeAtom";
 import { formBackgroundAtom } from "@/app/store/atoms/formBackgroundAtom";
 import { formStyleAtom } from "@/app/store/atoms/formStyleAtom";
 import submitResponse from "@/app/actions/submitResponse";
 import { toast } from "sonner";
+import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
+import { enableSignInAtom } from "@/app/store/atoms/enableSignInAtom";
 
 type FormUiType = {
   mode: "edit" | "live";
@@ -40,6 +43,12 @@ export default function FormUi({ mode }: FormUiType) {
   const [formSubmit, setFormSubmit] = useState(false);
   const formId = params.formId as string;
   const formRef = useRef<HTMLFormElement | null>(null);
+  const user = useUser();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const redirectUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`
+  const isEnableSignIn = useAtomValue(enableSignInAtom)
+  const setIsEnableSignIn = useSetAtom(enableSignInAtom)
 
   useEffect(() => {
     const fetchForm = async () => {
@@ -59,6 +68,7 @@ export default function FormUi({ mode }: FormUiType) {
           setSelectedTheme(response.formTheme);
           setSelectedBackground(response.formBackground);
           setSelectedStyle(response.formStyle);
+          setIsEnableSignIn(response.enableSignIn)
         } catch (error) {
           console.error("Error fetching form:", error);
         }
@@ -310,9 +320,15 @@ export default function FormUi({ mode }: FormUiType) {
           </div>
         </div>
       ))}
-      <button type="submit" className="btn btn-primary">
-        {formSubmit ? <Loader className="animate-spin" /> : "Submit"}
-      </button>
+      {isEnableSignIn && !user.isSignedIn ? (
+        <Link href={`/sign-in?redirect_url=${encodeURIComponent(redirectUrl)}`}>
+          <button className="btn btn-primary">Sign In To Submit</button>
+        </Link>
+      ) : (
+        <button type="submit" className="btn btn-primary">
+          {formSubmit ? <Loader className="animate-spin" /> : "Submit"}
+        </button>
+      )}
     </form>
   );
 }
