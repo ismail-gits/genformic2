@@ -16,7 +16,6 @@ import { Edit, Share2, SquareArrowOutUpRight, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { toast } from "sonner";
-import { RWebShare } from "react-web-share";
 
 type FormListItemType = {
   form: FormSchemaType;

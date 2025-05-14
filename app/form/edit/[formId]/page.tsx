@@ -9,7 +9,6 @@ import { useAtom } from "jotai";
 import { formBackgroundAtom } from "@/app/store/atoms/formBackgroundAtom";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { RWebShare } from "react-web-share";
 import { formAtom } from "@/app/store/atoms/formAtom";
 
 export default function EditForm() {
