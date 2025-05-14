@@ -28,10 +28,9 @@ import { toast } from "sonner";
 
 type FormUiType = {
   mode: "edit" | "live";
-  setJsonForm?: () => void;
 };
 
-export default function FormUi({ mode, setJsonForm }: FormUiType) {
+export default function FormUi({ mode }: FormUiType) {
   const params = useParams();
   const [form, setForm] = useAtom(formAtom);
   const [selectedTheme, setSelectedTheme] = useAtom(formThemeAtom);

@@ -1,7 +1,9 @@
 "use client";
 
+import { formCountAtom } from "@/app/store/atoms/formCountAtom";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { useAtomValue } from "jotai";
 import {
   ChartNoAxesCombined,
   LibraryBig,
@@ -50,6 +52,7 @@ const menuList: MenuListType[] = [
 
 export default function SideNav() {
   const path = usePathname();
+  const formCount = useAtomValue(formCountAtom)
 
   return (
     <div className="h-screen shadow-md border">
@@ -72,9 +75,9 @@ export default function SideNav() {
           <Sparkles className="w-4 h-4" /> Generate Form
         </Button>
         <div className="my-7">
-          <Progress value={33} />
+          <Progress value={(formCount / 3) * 100} />
           <h2 className="mt-2 text-gray-600">
-            <strong>2</strong> out of <strong>3</strong> Credits Used
+            <strong>{formCount}</strong> out of <strong>3</strong> Credits Used
           </h2>
           <h2 className="mt-3 text-center bg-gradient-to-r from-purple-200 to-blue-200 hover:from-blue-200 hover:to-purple-200 px-2 py-1 text-gray-600 rounded-md">Upgrade to generate more</h2>
         </div>

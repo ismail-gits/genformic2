@@ -4,6 +4,8 @@ import getAllForms, { GetAllFormsReturnType } from "@/app/actions/getAllForms";
 import { useEffect, useState } from "react";
 import FormListItem from "./FormListItem";
 import FormListResponses from "./FormListResponses";
+import { useSetAtom } from "jotai";
+import { formCountAtom } from "@/app/store/atoms/formCountAtom";
 
 type FormListType = {
   mode: "forms" | "responses";
@@ -11,6 +13,7 @@ type FormListType = {
 
 export default function FormList({ mode }: FormListType) {
   const [forms, setForms] = useState<GetAllFormsReturnType[]>([]);
+  const setFormCount = useSetAtom(formCountAtom)
 
   useEffect(() => {
     const fetchForms = async () => {
@@ -22,6 +25,7 @@ export default function FormList({ mode }: FormListType) {
         }
 
         setForms(response);
+        setFormCount(response.length)
       } catch (error) {
         console.log("Error while fetching all forms: " + error);
       }
@@ -39,7 +43,11 @@ export default function FormList({ mode }: FormListType) {
               form={JSON.parse(form.jsonForm)}
               formId={form.id}
               onDelete={() => {
-                setForms((forms) => forms.filter((f) => f.id !== form.id));
+                setForms((forms) => {
+                  const updatedForms = forms.filter((f) => f.id !== form.id)
+                  setFormCount(updatedForms.length)
+                  return updatedForms
+                });
               }}
             />
           ) : (
