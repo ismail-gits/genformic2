@@ -38,12 +38,6 @@ const menuList: MenuListType[] = [
   },
   {
     id: 3,
-    name: "Analytics",
-    icon: ChartNoAxesCombined,
-    path: "/dashboard/analytics",
-  },
-  {
-    id: 4,
     name: "Upgrade",
     icon: ShieldPlus,
     path: "/dashboard/upgrade",
