@@ -14,7 +14,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { FieldSchemaType, OptionSchemaType } from "@/lib/zod";
 import { Loader } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FieldEdit from "./FieldEdit";
 import { formAtom } from "@/app/store/atoms/formAtom";
 import { useParams } from "next/navigation";
@@ -23,6 +23,8 @@ import { useAtom, useSetAtom } from "jotai";
 import { formThemeAtom } from "@/app/store/atoms/formThemeAtom";
 import { formBackgroundAtom } from "@/app/store/atoms/formBackgroundAtom";
 import { formStyleAtom } from "@/app/store/atoms/formStyleAtom";
+import submitResponse from "@/app/actions/submitResponse";
+import { toast } from "sonner";
 
 type FormUiType = {
   mode: "edit" | "live";
@@ -35,12 +37,14 @@ export default function FormUi({ mode }: FormUiType) {
   const setSelectedBackground = useSetAtom(formBackgroundAtom);
   const [selectedStyle, setSelectedStyle] = useAtom(formStyleAtom);
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
+  const [formSubmit, setFormSubmit] = useState(false)
+  const formId = params.formId as string
+  const formRef = useRef<HTMLFormElement | null>(null)
 
   useEffect(() => {
     const fetchForm = async () => {
       if (params?.formId) {
         try {
-          const formId = params.formId as string;
           const response = await getForm({
             mode,
             formId,
@@ -75,12 +79,33 @@ export default function FormUi({ mode }: FormUiType) {
       : selectedStyle.key]: selectedStyle.value,
   };
 
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setFormSubmit(true)
+
+    const result = await submitResponse({
+      formId,
+      jsonResponse: JSON.stringify(formData),
+    });
+
+    setFormSubmit(false)
+
+    if (result) {
+      formRef.current?.reset()
+      toast("Response submitted successfully !")
+    }
+    else {
+      toast("Error while submitting your response !")
+    }
+
+    console.log(result)
+  };
+
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log(formData);
-      }}
+      ref={formRef}
+      onSubmit={handleFormSubmit}
       className="border p-5 md:w-[600px] rounded-lg"
       data-theme={selectedTheme}
       style={formBorderStyle}
@@ -287,7 +312,7 @@ export default function FormUi({ mode }: FormUiType) {
         </div>
       ))}
       <button type="submit" className="btn btn-primary">
-        Submit
+        {formSubmit ? <Loader className="animate-spin"/> : "Submit"}
       </button>
     </form>
   );

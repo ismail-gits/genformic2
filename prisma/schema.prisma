@@ -15,11 +15,21 @@ datasource db {
 }
 
 model Forms {
-  id        String   @id @default(uuid())
-  ownerId   String
-  jsonForm  String
-  createdAt DateTime @default(now())
-  formTheme String @default("light")
-  formBackground String @default("")
-  formStyle String @default("{}")
+  id             String         @id @default(uuid())
+  ownerId        String
+  jsonForm       String
+  createdAt      DateTime       @default(now())
+  formTheme      String         @default("light")
+  formBackground String         @default("")
+  formStyle      String         @default("{}")
+  responses      UserReponses[]
+}
+
+model UserReponses {
+  id           String   @id @default(uuid())
+  formId       String
+  jsonResponse String
+  createdAt    DateTime @default(now())
+  createdBy    String   @default("anonymous")
+  form         Forms    @relation(fields: [formId], references: [id])
 }

@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type Forms = $Result.DefaultSelection<Prisma.$FormsPayload>
+/**
+ * Model UserReponses
+ * 
+ */
+export type UserReponses = $Result.DefaultSelection<Prisma.$UserReponsesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,6 +158,16 @@ export class PrismaClient<
     * ```
     */
   get forms(): Prisma.FormsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userReponses`: Exposes CRUD operations for the **UserReponses** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserReponses
+    * const userReponses = await prisma.userReponses.findMany()
+    * ```
+    */
+  get userReponses(): Prisma.UserReponsesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -211,8 +226,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.7.0
+   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
    */
   export type PrismaVersion = {
     client: string
@@ -593,7 +608,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Forms: 'Forms'
+    Forms: 'Forms',
+    UserReponses: 'UserReponses'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +628,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "forms"
+      modelProps: "forms" | "userReponses"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +703,80 @@ export namespace Prisma {
           count: {
             args: Prisma.FormsCountArgs<ExtArgs>
             result: $Utils.Optional<FormsCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserReponses: {
+        payload: Prisma.$UserReponsesPayload<ExtArgs>
+        fields: Prisma.UserReponsesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserReponsesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserReponsesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserReponsesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserReponsesPayload>
+          }
+          findFirst: {
+            args: Prisma.UserReponsesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserReponsesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserReponsesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserReponsesPayload>
+          }
+          findMany: {
+            args: Prisma.UserReponsesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserReponsesPayload>[]
+          }
+          create: {
+            args: Prisma.UserReponsesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserReponsesPayload>
+          }
+          createMany: {
+            args: Prisma.UserReponsesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserReponsesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserReponsesPayload>[]
+          }
+          delete: {
+            args: Prisma.UserReponsesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserReponsesPayload>
+          }
+          update: {
+            args: Prisma.UserReponsesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserReponsesPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserReponsesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserReponsesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserReponsesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserReponsesPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserReponsesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserReponsesPayload>
+          }
+          aggregate: {
+            args: Prisma.UserReponsesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserReponses>
+          }
+          groupBy: {
+            args: Prisma.UserReponsesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserReponsesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserReponsesCountArgs<ExtArgs>
+            result: $Utils.Optional<UserReponsesCountAggregateOutputType> | number
           }
         }
       }
@@ -775,6 +865,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     forms?: FormsOmit
+    userReponses?: UserReponsesOmit
   }
 
   /* Types for Logging */
@@ -863,6 +954,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type FormsCountOutputType
+   */
+
+  export type FormsCountOutputType = {
+    responses: number
+  }
+
+  export type FormsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    responses?: boolean | FormsCountOutputTypeCountResponsesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FormsCountOutputType without action
+   */
+  export type FormsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormsCountOutputType
+     */
+    select?: FormsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FormsCountOutputType without action
+   */
+  export type FormsCountOutputTypeCountResponsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserReponsesWhereInput
+  }
 
 
   /**
@@ -1049,6 +1170,8 @@ export namespace Prisma {
     formTheme?: boolean
     formBackground?: boolean
     formStyle?: boolean
+    responses?: boolean | Forms$responsesArgs<ExtArgs>
+    _count?: boolean | FormsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["forms"]>
 
   export type FormsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1082,10 +1205,18 @@ export namespace Prisma {
   }
 
   export type FormsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ownerId" | "jsonForm" | "createdAt" | "formTheme" | "formBackground" | "formStyle", ExtArgs["result"]["forms"]>
+  export type FormsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    responses?: boolean | Forms$responsesArgs<ExtArgs>
+    _count?: boolean | FormsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type FormsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type FormsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $FormsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Forms"
-    objects: {}
+    objects: {
+      responses: Prisma.$UserReponsesPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       ownerId: string
@@ -1488,6 +1619,7 @@ export namespace Prisma {
    */
   export interface Prisma__FormsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    responses<T extends Forms$responsesArgs<ExtArgs> = {}>(args?: Subset<T, Forms$responsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1541,6 +1673,10 @@ export namespace Prisma {
      */
     omit?: FormsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormsInclude<ExtArgs> | null
+    /**
      * Filter, which Forms to fetch.
      */
     where: FormsWhereUniqueInput
@@ -1559,6 +1695,10 @@ export namespace Prisma {
      */
     omit?: FormsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormsInclude<ExtArgs> | null
+    /**
      * Filter, which Forms to fetch.
      */
     where: FormsWhereUniqueInput
@@ -1576,6 +1716,10 @@ export namespace Prisma {
      * Omit specific fields from the Forms
      */
     omit?: FormsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormsInclude<ExtArgs> | null
     /**
      * Filter, which Forms to fetch.
      */
@@ -1625,6 +1769,10 @@ export namespace Prisma {
      */
     omit?: FormsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormsInclude<ExtArgs> | null
+    /**
      * Filter, which Forms to fetch.
      */
     where?: FormsWhereInput
@@ -1673,6 +1821,10 @@ export namespace Prisma {
      */
     omit?: FormsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormsInclude<ExtArgs> | null
+    /**
      * Filter, which Forms to fetch.
      */
     where?: FormsWhereInput
@@ -1715,6 +1867,10 @@ export namespace Prisma {
      * Omit specific fields from the Forms
      */
     omit?: FormsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormsInclude<ExtArgs> | null
     /**
      * The data needed to create a Forms.
      */
@@ -1763,6 +1919,10 @@ export namespace Prisma {
      * Omit specific fields from the Forms
      */
     omit?: FormsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormsInclude<ExtArgs> | null
     /**
      * The data needed to update a Forms.
      */
@@ -1830,6 +1990,10 @@ export namespace Prisma {
      */
     omit?: FormsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormsInclude<ExtArgs> | null
+    /**
      * The filter to search for the Forms to update in case it exists.
      */
     where: FormsWhereUniqueInput
@@ -1856,6 +2020,10 @@ export namespace Prisma {
      */
     omit?: FormsOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormsInclude<ExtArgs> | null
+    /**
      * Filter which Forms to delete.
      */
     where: FormsWhereUniqueInput
@@ -1876,6 +2044,30 @@ export namespace Prisma {
   }
 
   /**
+   * Forms.responses
+   */
+  export type Forms$responsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesInclude<ExtArgs> | null
+    where?: UserReponsesWhereInput
+    orderBy?: UserReponsesOrderByWithRelationInput | UserReponsesOrderByWithRelationInput[]
+    cursor?: UserReponsesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserReponsesScalarFieldEnum | UserReponsesScalarFieldEnum[]
+  }
+
+  /**
    * Forms without action
    */
   export type FormsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1887,6 +2079,1068 @@ export namespace Prisma {
      * Omit specific fields from the Forms
      */
     omit?: FormsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserReponses
+   */
+
+  export type AggregateUserReponses = {
+    _count: UserReponsesCountAggregateOutputType | null
+    _min: UserReponsesMinAggregateOutputType | null
+    _max: UserReponsesMaxAggregateOutputType | null
+  }
+
+  export type UserReponsesMinAggregateOutputType = {
+    id: string | null
+    formId: string | null
+    jsonResponse: string | null
+    createdAt: Date | null
+    createdBy: string | null
+  }
+
+  export type UserReponsesMaxAggregateOutputType = {
+    id: string | null
+    formId: string | null
+    jsonResponse: string | null
+    createdAt: Date | null
+    createdBy: string | null
+  }
+
+  export type UserReponsesCountAggregateOutputType = {
+    id: number
+    formId: number
+    jsonResponse: number
+    createdAt: number
+    createdBy: number
+    _all: number
+  }
+
+
+  export type UserReponsesMinAggregateInputType = {
+    id?: true
+    formId?: true
+    jsonResponse?: true
+    createdAt?: true
+    createdBy?: true
+  }
+
+  export type UserReponsesMaxAggregateInputType = {
+    id?: true
+    formId?: true
+    jsonResponse?: true
+    createdAt?: true
+    createdBy?: true
+  }
+
+  export type UserReponsesCountAggregateInputType = {
+    id?: true
+    formId?: true
+    jsonResponse?: true
+    createdAt?: true
+    createdBy?: true
+    _all?: true
+  }
+
+  export type UserReponsesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserReponses to aggregate.
+     */
+    where?: UserReponsesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserReponses to fetch.
+     */
+    orderBy?: UserReponsesOrderByWithRelationInput | UserReponsesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserReponsesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserReponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserReponses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserReponses
+    **/
+    _count?: true | UserReponsesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserReponsesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserReponsesMaxAggregateInputType
+  }
+
+  export type GetUserReponsesAggregateType<T extends UserReponsesAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserReponses]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserReponses[P]>
+      : GetScalarType<T[P], AggregateUserReponses[P]>
+  }
+
+
+
+
+  export type UserReponsesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserReponsesWhereInput
+    orderBy?: UserReponsesOrderByWithAggregationInput | UserReponsesOrderByWithAggregationInput[]
+    by: UserReponsesScalarFieldEnum[] | UserReponsesScalarFieldEnum
+    having?: UserReponsesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserReponsesCountAggregateInputType | true
+    _min?: UserReponsesMinAggregateInputType
+    _max?: UserReponsesMaxAggregateInputType
+  }
+
+  export type UserReponsesGroupByOutputType = {
+    id: string
+    formId: string
+    jsonResponse: string
+    createdAt: Date
+    createdBy: string
+    _count: UserReponsesCountAggregateOutputType | null
+    _min: UserReponsesMinAggregateOutputType | null
+    _max: UserReponsesMaxAggregateOutputType | null
+  }
+
+  type GetUserReponsesGroupByPayload<T extends UserReponsesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserReponsesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserReponsesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserReponsesGroupByOutputType[P]>
+            : GetScalarType<T[P], UserReponsesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserReponsesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formId?: boolean
+    jsonResponse?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    form?: boolean | FormsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userReponses"]>
+
+  export type UserReponsesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formId?: boolean
+    jsonResponse?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    form?: boolean | FormsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userReponses"]>
+
+  export type UserReponsesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formId?: boolean
+    jsonResponse?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    form?: boolean | FormsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userReponses"]>
+
+  export type UserReponsesSelectScalar = {
+    id?: boolean
+    formId?: boolean
+    jsonResponse?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+  }
+
+  export type UserReponsesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "formId" | "jsonResponse" | "createdAt" | "createdBy", ExtArgs["result"]["userReponses"]>
+  export type UserReponsesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    form?: boolean | FormsDefaultArgs<ExtArgs>
+  }
+  export type UserReponsesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    form?: boolean | FormsDefaultArgs<ExtArgs>
+  }
+  export type UserReponsesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    form?: boolean | FormsDefaultArgs<ExtArgs>
+  }
+
+  export type $UserReponsesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserReponses"
+    objects: {
+      form: Prisma.$FormsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      formId: string
+      jsonResponse: string
+      createdAt: Date
+      createdBy: string
+    }, ExtArgs["result"]["userReponses"]>
+    composites: {}
+  }
+
+  type UserReponsesGetPayload<S extends boolean | null | undefined | UserReponsesDefaultArgs> = $Result.GetResult<Prisma.$UserReponsesPayload, S>
+
+  type UserReponsesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserReponsesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserReponsesCountAggregateInputType | true
+    }
+
+  export interface UserReponsesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserReponses'], meta: { name: 'UserReponses' } }
+    /**
+     * Find zero or one UserReponses that matches the filter.
+     * @param {UserReponsesFindUniqueArgs} args - Arguments to find a UserReponses
+     * @example
+     * // Get one UserReponses
+     * const userReponses = await prisma.userReponses.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserReponsesFindUniqueArgs>(args: SelectSubset<T, UserReponsesFindUniqueArgs<ExtArgs>>): Prisma__UserReponsesClient<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserReponses that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserReponsesFindUniqueOrThrowArgs} args - Arguments to find a UserReponses
+     * @example
+     * // Get one UserReponses
+     * const userReponses = await prisma.userReponses.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserReponsesFindUniqueOrThrowArgs>(args: SelectSubset<T, UserReponsesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserReponsesClient<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserReponses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserReponsesFindFirstArgs} args - Arguments to find a UserReponses
+     * @example
+     * // Get one UserReponses
+     * const userReponses = await prisma.userReponses.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserReponsesFindFirstArgs>(args?: SelectSubset<T, UserReponsesFindFirstArgs<ExtArgs>>): Prisma__UserReponsesClient<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserReponses that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserReponsesFindFirstOrThrowArgs} args - Arguments to find a UserReponses
+     * @example
+     * // Get one UserReponses
+     * const userReponses = await prisma.userReponses.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserReponsesFindFirstOrThrowArgs>(args?: SelectSubset<T, UserReponsesFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserReponsesClient<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserReponses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserReponsesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserReponses
+     * const userReponses = await prisma.userReponses.findMany()
+     * 
+     * // Get first 10 UserReponses
+     * const userReponses = await prisma.userReponses.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userReponsesWithIdOnly = await prisma.userReponses.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserReponsesFindManyArgs>(args?: SelectSubset<T, UserReponsesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserReponses.
+     * @param {UserReponsesCreateArgs} args - Arguments to create a UserReponses.
+     * @example
+     * // Create one UserReponses
+     * const UserReponses = await prisma.userReponses.create({
+     *   data: {
+     *     // ... data to create a UserReponses
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserReponsesCreateArgs>(args: SelectSubset<T, UserReponsesCreateArgs<ExtArgs>>): Prisma__UserReponsesClient<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserReponses.
+     * @param {UserReponsesCreateManyArgs} args - Arguments to create many UserReponses.
+     * @example
+     * // Create many UserReponses
+     * const userReponses = await prisma.userReponses.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserReponsesCreateManyArgs>(args?: SelectSubset<T, UserReponsesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserReponses and returns the data saved in the database.
+     * @param {UserReponsesCreateManyAndReturnArgs} args - Arguments to create many UserReponses.
+     * @example
+     * // Create many UserReponses
+     * const userReponses = await prisma.userReponses.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserReponses and only return the `id`
+     * const userReponsesWithIdOnly = await prisma.userReponses.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserReponsesCreateManyAndReturnArgs>(args?: SelectSubset<T, UserReponsesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserReponses.
+     * @param {UserReponsesDeleteArgs} args - Arguments to delete one UserReponses.
+     * @example
+     * // Delete one UserReponses
+     * const UserReponses = await prisma.userReponses.delete({
+     *   where: {
+     *     // ... filter to delete one UserReponses
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserReponsesDeleteArgs>(args: SelectSubset<T, UserReponsesDeleteArgs<ExtArgs>>): Prisma__UserReponsesClient<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserReponses.
+     * @param {UserReponsesUpdateArgs} args - Arguments to update one UserReponses.
+     * @example
+     * // Update one UserReponses
+     * const userReponses = await prisma.userReponses.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserReponsesUpdateArgs>(args: SelectSubset<T, UserReponsesUpdateArgs<ExtArgs>>): Prisma__UserReponsesClient<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserReponses.
+     * @param {UserReponsesDeleteManyArgs} args - Arguments to filter UserReponses to delete.
+     * @example
+     * // Delete a few UserReponses
+     * const { count } = await prisma.userReponses.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserReponsesDeleteManyArgs>(args?: SelectSubset<T, UserReponsesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserReponses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserReponsesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserReponses
+     * const userReponses = await prisma.userReponses.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserReponsesUpdateManyArgs>(args: SelectSubset<T, UserReponsesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserReponses and returns the data updated in the database.
+     * @param {UserReponsesUpdateManyAndReturnArgs} args - Arguments to update many UserReponses.
+     * @example
+     * // Update many UserReponses
+     * const userReponses = await prisma.userReponses.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserReponses and only return the `id`
+     * const userReponsesWithIdOnly = await prisma.userReponses.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserReponsesUpdateManyAndReturnArgs>(args: SelectSubset<T, UserReponsesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserReponses.
+     * @param {UserReponsesUpsertArgs} args - Arguments to update or create a UserReponses.
+     * @example
+     * // Update or create a UserReponses
+     * const userReponses = await prisma.userReponses.upsert({
+     *   create: {
+     *     // ... data to create a UserReponses
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserReponses we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserReponsesUpsertArgs>(args: SelectSubset<T, UserReponsesUpsertArgs<ExtArgs>>): Prisma__UserReponsesClient<$Result.GetResult<Prisma.$UserReponsesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserReponses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserReponsesCountArgs} args - Arguments to filter UserReponses to count.
+     * @example
+     * // Count the number of UserReponses
+     * const count = await prisma.userReponses.count({
+     *   where: {
+     *     // ... the filter for the UserReponses we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserReponsesCountArgs>(
+      args?: Subset<T, UserReponsesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserReponsesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserReponses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserReponsesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserReponsesAggregateArgs>(args: Subset<T, UserReponsesAggregateArgs>): Prisma.PrismaPromise<GetUserReponsesAggregateType<T>>
+
+    /**
+     * Group by UserReponses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserReponsesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserReponsesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserReponsesGroupByArgs['orderBy'] }
+        : { orderBy?: UserReponsesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserReponsesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserReponsesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserReponses model
+   */
+  readonly fields: UserReponsesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserReponses.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserReponsesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    form<T extends FormsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FormsDefaultArgs<ExtArgs>>): Prisma__FormsClient<$Result.GetResult<Prisma.$FormsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserReponses model
+   */
+  interface UserReponsesFieldRefs {
+    readonly id: FieldRef<"UserReponses", 'String'>
+    readonly formId: FieldRef<"UserReponses", 'String'>
+    readonly jsonResponse: FieldRef<"UserReponses", 'String'>
+    readonly createdAt: FieldRef<"UserReponses", 'DateTime'>
+    readonly createdBy: FieldRef<"UserReponses", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserReponses findUnique
+   */
+  export type UserReponsesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserReponses to fetch.
+     */
+    where: UserReponsesWhereUniqueInput
+  }
+
+  /**
+   * UserReponses findUniqueOrThrow
+   */
+  export type UserReponsesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserReponses to fetch.
+     */
+    where: UserReponsesWhereUniqueInput
+  }
+
+  /**
+   * UserReponses findFirst
+   */
+  export type UserReponsesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserReponses to fetch.
+     */
+    where?: UserReponsesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserReponses to fetch.
+     */
+    orderBy?: UserReponsesOrderByWithRelationInput | UserReponsesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserReponses.
+     */
+    cursor?: UserReponsesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserReponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserReponses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserReponses.
+     */
+    distinct?: UserReponsesScalarFieldEnum | UserReponsesScalarFieldEnum[]
+  }
+
+  /**
+   * UserReponses findFirstOrThrow
+   */
+  export type UserReponsesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserReponses to fetch.
+     */
+    where?: UserReponsesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserReponses to fetch.
+     */
+    orderBy?: UserReponsesOrderByWithRelationInput | UserReponsesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserReponses.
+     */
+    cursor?: UserReponsesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserReponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserReponses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserReponses.
+     */
+    distinct?: UserReponsesScalarFieldEnum | UserReponsesScalarFieldEnum[]
+  }
+
+  /**
+   * UserReponses findMany
+   */
+  export type UserReponsesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserReponses to fetch.
+     */
+    where?: UserReponsesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserReponses to fetch.
+     */
+    orderBy?: UserReponsesOrderByWithRelationInput | UserReponsesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserReponses.
+     */
+    cursor?: UserReponsesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserReponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserReponses.
+     */
+    skip?: number
+    distinct?: UserReponsesScalarFieldEnum | UserReponsesScalarFieldEnum[]
+  }
+
+  /**
+   * UserReponses create
+   */
+  export type UserReponsesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserReponses.
+     */
+    data: XOR<UserReponsesCreateInput, UserReponsesUncheckedCreateInput>
+  }
+
+  /**
+   * UserReponses createMany
+   */
+  export type UserReponsesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserReponses.
+     */
+    data: UserReponsesCreateManyInput | UserReponsesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserReponses createManyAndReturn
+   */
+  export type UserReponsesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserReponses.
+     */
+    data: UserReponsesCreateManyInput | UserReponsesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserReponses update
+   */
+  export type UserReponsesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserReponses.
+     */
+    data: XOR<UserReponsesUpdateInput, UserReponsesUncheckedUpdateInput>
+    /**
+     * Choose, which UserReponses to update.
+     */
+    where: UserReponsesWhereUniqueInput
+  }
+
+  /**
+   * UserReponses updateMany
+   */
+  export type UserReponsesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserReponses.
+     */
+    data: XOR<UserReponsesUpdateManyMutationInput, UserReponsesUncheckedUpdateManyInput>
+    /**
+     * Filter which UserReponses to update
+     */
+    where?: UserReponsesWhereInput
+    /**
+     * Limit how many UserReponses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserReponses updateManyAndReturn
+   */
+  export type UserReponsesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * The data used to update UserReponses.
+     */
+    data: XOR<UserReponsesUpdateManyMutationInput, UserReponsesUncheckedUpdateManyInput>
+    /**
+     * Filter which UserReponses to update
+     */
+    where?: UserReponsesWhereInput
+    /**
+     * Limit how many UserReponses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserReponses upsert
+   */
+  export type UserReponsesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserReponses to update in case it exists.
+     */
+    where: UserReponsesWhereUniqueInput
+    /**
+     * In case the UserReponses found by the `where` argument doesn't exist, create a new UserReponses with this data.
+     */
+    create: XOR<UserReponsesCreateInput, UserReponsesUncheckedCreateInput>
+    /**
+     * In case the UserReponses was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserReponsesUpdateInput, UserReponsesUncheckedUpdateInput>
+  }
+
+  /**
+   * UserReponses delete
+   */
+  export type UserReponsesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesInclude<ExtArgs> | null
+    /**
+     * Filter which UserReponses to delete.
+     */
+    where: UserReponsesWhereUniqueInput
+  }
+
+  /**
+   * UserReponses deleteMany
+   */
+  export type UserReponsesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserReponses to delete
+     */
+    where?: UserReponsesWhereInput
+    /**
+     * Limit how many UserReponses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserReponses without action
+   */
+  export type UserReponsesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserReponses
+     */
+    select?: UserReponsesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserReponses
+     */
+    omit?: UserReponsesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserReponsesInclude<ExtArgs> | null
   }
 
 
@@ -1915,6 +3169,17 @@ export namespace Prisma {
   };
 
   export type FormsScalarFieldEnum = (typeof FormsScalarFieldEnum)[keyof typeof FormsScalarFieldEnum]
+
+
+  export const UserReponsesScalarFieldEnum: {
+    id: 'id',
+    formId: 'formId',
+    jsonResponse: 'jsonResponse',
+    createdAt: 'createdAt',
+    createdBy: 'createdBy'
+  };
+
+  export type UserReponsesScalarFieldEnum = (typeof UserReponsesScalarFieldEnum)[keyof typeof UserReponsesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -1994,6 +3259,7 @@ export namespace Prisma {
     formTheme?: StringFilter<"Forms"> | string
     formBackground?: StringFilter<"Forms"> | string
     formStyle?: StringFilter<"Forms"> | string
+    responses?: UserReponsesListRelationFilter
   }
 
   export type FormsOrderByWithRelationInput = {
@@ -2004,6 +3270,7 @@ export namespace Prisma {
     formTheme?: SortOrder
     formBackground?: SortOrder
     formStyle?: SortOrder
+    responses?: UserReponsesOrderByRelationAggregateInput
   }
 
   export type FormsWhereUniqueInput = Prisma.AtLeast<{
@@ -2017,6 +3284,7 @@ export namespace Prisma {
     formTheme?: StringFilter<"Forms"> | string
     formBackground?: StringFilter<"Forms"> | string
     formStyle?: StringFilter<"Forms"> | string
+    responses?: UserReponsesListRelationFilter
   }, "id">
 
   export type FormsOrderByWithAggregationInput = {
@@ -2045,6 +3313,61 @@ export namespace Prisma {
     formStyle?: StringWithAggregatesFilter<"Forms"> | string
   }
 
+  export type UserReponsesWhereInput = {
+    AND?: UserReponsesWhereInput | UserReponsesWhereInput[]
+    OR?: UserReponsesWhereInput[]
+    NOT?: UserReponsesWhereInput | UserReponsesWhereInput[]
+    id?: StringFilter<"UserReponses"> | string
+    formId?: StringFilter<"UserReponses"> | string
+    jsonResponse?: StringFilter<"UserReponses"> | string
+    createdAt?: DateTimeFilter<"UserReponses"> | Date | string
+    createdBy?: StringFilter<"UserReponses"> | string
+    form?: XOR<FormsScalarRelationFilter, FormsWhereInput>
+  }
+
+  export type UserReponsesOrderByWithRelationInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    jsonResponse?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    form?: FormsOrderByWithRelationInput
+  }
+
+  export type UserReponsesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UserReponsesWhereInput | UserReponsesWhereInput[]
+    OR?: UserReponsesWhereInput[]
+    NOT?: UserReponsesWhereInput | UserReponsesWhereInput[]
+    formId?: StringFilter<"UserReponses"> | string
+    jsonResponse?: StringFilter<"UserReponses"> | string
+    createdAt?: DateTimeFilter<"UserReponses"> | Date | string
+    createdBy?: StringFilter<"UserReponses"> | string
+    form?: XOR<FormsScalarRelationFilter, FormsWhereInput>
+  }, "id">
+
+  export type UserReponsesOrderByWithAggregationInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    jsonResponse?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    _count?: UserReponsesCountOrderByAggregateInput
+    _max?: UserReponsesMaxOrderByAggregateInput
+    _min?: UserReponsesMinOrderByAggregateInput
+  }
+
+  export type UserReponsesScalarWhereWithAggregatesInput = {
+    AND?: UserReponsesScalarWhereWithAggregatesInput | UserReponsesScalarWhereWithAggregatesInput[]
+    OR?: UserReponsesScalarWhereWithAggregatesInput[]
+    NOT?: UserReponsesScalarWhereWithAggregatesInput | UserReponsesScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserReponses"> | string
+    formId?: StringWithAggregatesFilter<"UserReponses"> | string
+    jsonResponse?: StringWithAggregatesFilter<"UserReponses"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"UserReponses"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"UserReponses"> | string
+  }
+
   export type FormsCreateInput = {
     id?: string
     ownerId: string
@@ -2053,6 +3376,7 @@ export namespace Prisma {
     formTheme?: string
     formBackground?: string
     formStyle?: string
+    responses?: UserReponsesCreateNestedManyWithoutFormInput
   }
 
   export type FormsUncheckedCreateInput = {
@@ -2063,6 +3387,7 @@ export namespace Prisma {
     formTheme?: string
     formBackground?: string
     formStyle?: string
+    responses?: UserReponsesUncheckedCreateNestedManyWithoutFormInput
   }
 
   export type FormsUpdateInput = {
@@ -2073,6 +3398,7 @@ export namespace Prisma {
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
     formStyle?: StringFieldUpdateOperationsInput | string
+    responses?: UserReponsesUpdateManyWithoutFormNestedInput
   }
 
   export type FormsUncheckedUpdateInput = {
@@ -2083,6 +3409,7 @@ export namespace Prisma {
     formTheme?: StringFieldUpdateOperationsInput | string
     formBackground?: StringFieldUpdateOperationsInput | string
     formStyle?: StringFieldUpdateOperationsInput | string
+    responses?: UserReponsesUncheckedUpdateManyWithoutFormNestedInput
   }
 
   export type FormsCreateManyInput = {
@@ -2115,6 +3442,61 @@ export namespace Prisma {
     formStyle?: StringFieldUpdateOperationsInput | string
   }
 
+  export type UserReponsesCreateInput = {
+    id?: string
+    jsonResponse: string
+    createdAt?: Date | string
+    createdBy?: string
+    form: FormsCreateNestedOneWithoutResponsesInput
+  }
+
+  export type UserReponsesUncheckedCreateInput = {
+    id?: string
+    formId: string
+    jsonResponse: string
+    createdAt?: Date | string
+    createdBy?: string
+  }
+
+  export type UserReponsesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jsonResponse?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    form?: FormsUpdateOneRequiredWithoutResponsesNestedInput
+  }
+
+  export type UserReponsesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    jsonResponse?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserReponsesCreateManyInput = {
+    id?: string
+    formId: string
+    jsonResponse: string
+    createdAt?: Date | string
+    createdBy?: string
+  }
+
+  export type UserReponsesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jsonResponse?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserReponsesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    jsonResponse?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -2139,6 +3521,16 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type UserReponsesListRelationFilter = {
+    every?: UserReponsesWhereInput
+    some?: UserReponsesWhereInput
+    none?: UserReponsesWhereInput
+  }
+
+  export type UserReponsesOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type FormsCountOrderByAggregateInput = {
@@ -2203,12 +3595,97 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type FormsScalarRelationFilter = {
+    is?: FormsWhereInput
+    isNot?: FormsWhereInput
+  }
+
+  export type UserReponsesCountOrderByAggregateInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    jsonResponse?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+  }
+
+  export type UserReponsesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    jsonResponse?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+  }
+
+  export type UserReponsesMinOrderByAggregateInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    jsonResponse?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+  }
+
+  export type UserReponsesCreateNestedManyWithoutFormInput = {
+    create?: XOR<UserReponsesCreateWithoutFormInput, UserReponsesUncheckedCreateWithoutFormInput> | UserReponsesCreateWithoutFormInput[] | UserReponsesUncheckedCreateWithoutFormInput[]
+    connectOrCreate?: UserReponsesCreateOrConnectWithoutFormInput | UserReponsesCreateOrConnectWithoutFormInput[]
+    createMany?: UserReponsesCreateManyFormInputEnvelope
+    connect?: UserReponsesWhereUniqueInput | UserReponsesWhereUniqueInput[]
+  }
+
+  export type UserReponsesUncheckedCreateNestedManyWithoutFormInput = {
+    create?: XOR<UserReponsesCreateWithoutFormInput, UserReponsesUncheckedCreateWithoutFormInput> | UserReponsesCreateWithoutFormInput[] | UserReponsesUncheckedCreateWithoutFormInput[]
+    connectOrCreate?: UserReponsesCreateOrConnectWithoutFormInput | UserReponsesCreateOrConnectWithoutFormInput[]
+    createMany?: UserReponsesCreateManyFormInputEnvelope
+    connect?: UserReponsesWhereUniqueInput | UserReponsesWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type UserReponsesUpdateManyWithoutFormNestedInput = {
+    create?: XOR<UserReponsesCreateWithoutFormInput, UserReponsesUncheckedCreateWithoutFormInput> | UserReponsesCreateWithoutFormInput[] | UserReponsesUncheckedCreateWithoutFormInput[]
+    connectOrCreate?: UserReponsesCreateOrConnectWithoutFormInput | UserReponsesCreateOrConnectWithoutFormInput[]
+    upsert?: UserReponsesUpsertWithWhereUniqueWithoutFormInput | UserReponsesUpsertWithWhereUniqueWithoutFormInput[]
+    createMany?: UserReponsesCreateManyFormInputEnvelope
+    set?: UserReponsesWhereUniqueInput | UserReponsesWhereUniqueInput[]
+    disconnect?: UserReponsesWhereUniqueInput | UserReponsesWhereUniqueInput[]
+    delete?: UserReponsesWhereUniqueInput | UserReponsesWhereUniqueInput[]
+    connect?: UserReponsesWhereUniqueInput | UserReponsesWhereUniqueInput[]
+    update?: UserReponsesUpdateWithWhereUniqueWithoutFormInput | UserReponsesUpdateWithWhereUniqueWithoutFormInput[]
+    updateMany?: UserReponsesUpdateManyWithWhereWithoutFormInput | UserReponsesUpdateManyWithWhereWithoutFormInput[]
+    deleteMany?: UserReponsesScalarWhereInput | UserReponsesScalarWhereInput[]
+  }
+
+  export type UserReponsesUncheckedUpdateManyWithoutFormNestedInput = {
+    create?: XOR<UserReponsesCreateWithoutFormInput, UserReponsesUncheckedCreateWithoutFormInput> | UserReponsesCreateWithoutFormInput[] | UserReponsesUncheckedCreateWithoutFormInput[]
+    connectOrCreate?: UserReponsesCreateOrConnectWithoutFormInput | UserReponsesCreateOrConnectWithoutFormInput[]
+    upsert?: UserReponsesUpsertWithWhereUniqueWithoutFormInput | UserReponsesUpsertWithWhereUniqueWithoutFormInput[]
+    createMany?: UserReponsesCreateManyFormInputEnvelope
+    set?: UserReponsesWhereUniqueInput | UserReponsesWhereUniqueInput[]
+    disconnect?: UserReponsesWhereUniqueInput | UserReponsesWhereUniqueInput[]
+    delete?: UserReponsesWhereUniqueInput | UserReponsesWhereUniqueInput[]
+    connect?: UserReponsesWhereUniqueInput | UserReponsesWhereUniqueInput[]
+    update?: UserReponsesUpdateWithWhereUniqueWithoutFormInput | UserReponsesUpdateWithWhereUniqueWithoutFormInput[]
+    updateMany?: UserReponsesUpdateManyWithWhereWithoutFormInput | UserReponsesUpdateManyWithWhereWithoutFormInput[]
+    deleteMany?: UserReponsesScalarWhereInput | UserReponsesScalarWhereInput[]
+  }
+
+  export type FormsCreateNestedOneWithoutResponsesInput = {
+    create?: XOR<FormsCreateWithoutResponsesInput, FormsUncheckedCreateWithoutResponsesInput>
+    connectOrCreate?: FormsCreateOrConnectWithoutResponsesInput
+    connect?: FormsWhereUniqueInput
+  }
+
+  export type FormsUpdateOneRequiredWithoutResponsesNestedInput = {
+    create?: XOR<FormsCreateWithoutResponsesInput, FormsUncheckedCreateWithoutResponsesInput>
+    connectOrCreate?: FormsCreateOrConnectWithoutResponsesInput
+    upsert?: FormsUpsertWithoutResponsesInput
+    connect?: FormsWhereUniqueInput
+    update?: XOR<XOR<FormsUpdateToOneWithWhereWithoutResponsesInput, FormsUpdateWithoutResponsesInput>, FormsUncheckedUpdateWithoutResponsesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -2276,6 +3753,141 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type UserReponsesCreateWithoutFormInput = {
+    id?: string
+    jsonResponse: string
+    createdAt?: Date | string
+    createdBy?: string
+  }
+
+  export type UserReponsesUncheckedCreateWithoutFormInput = {
+    id?: string
+    jsonResponse: string
+    createdAt?: Date | string
+    createdBy?: string
+  }
+
+  export type UserReponsesCreateOrConnectWithoutFormInput = {
+    where: UserReponsesWhereUniqueInput
+    create: XOR<UserReponsesCreateWithoutFormInput, UserReponsesUncheckedCreateWithoutFormInput>
+  }
+
+  export type UserReponsesCreateManyFormInputEnvelope = {
+    data: UserReponsesCreateManyFormInput | UserReponsesCreateManyFormInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserReponsesUpsertWithWhereUniqueWithoutFormInput = {
+    where: UserReponsesWhereUniqueInput
+    update: XOR<UserReponsesUpdateWithoutFormInput, UserReponsesUncheckedUpdateWithoutFormInput>
+    create: XOR<UserReponsesCreateWithoutFormInput, UserReponsesUncheckedCreateWithoutFormInput>
+  }
+
+  export type UserReponsesUpdateWithWhereUniqueWithoutFormInput = {
+    where: UserReponsesWhereUniqueInput
+    data: XOR<UserReponsesUpdateWithoutFormInput, UserReponsesUncheckedUpdateWithoutFormInput>
+  }
+
+  export type UserReponsesUpdateManyWithWhereWithoutFormInput = {
+    where: UserReponsesScalarWhereInput
+    data: XOR<UserReponsesUpdateManyMutationInput, UserReponsesUncheckedUpdateManyWithoutFormInput>
+  }
+
+  export type UserReponsesScalarWhereInput = {
+    AND?: UserReponsesScalarWhereInput | UserReponsesScalarWhereInput[]
+    OR?: UserReponsesScalarWhereInput[]
+    NOT?: UserReponsesScalarWhereInput | UserReponsesScalarWhereInput[]
+    id?: StringFilter<"UserReponses"> | string
+    formId?: StringFilter<"UserReponses"> | string
+    jsonResponse?: StringFilter<"UserReponses"> | string
+    createdAt?: DateTimeFilter<"UserReponses"> | Date | string
+    createdBy?: StringFilter<"UserReponses"> | string
+  }
+
+  export type FormsCreateWithoutResponsesInput = {
+    id?: string
+    ownerId: string
+    jsonForm: string
+    createdAt?: Date | string
+    formTheme?: string
+    formBackground?: string
+    formStyle?: string
+  }
+
+  export type FormsUncheckedCreateWithoutResponsesInput = {
+    id?: string
+    ownerId: string
+    jsonForm: string
+    createdAt?: Date | string
+    formTheme?: string
+    formBackground?: string
+    formStyle?: string
+  }
+
+  export type FormsCreateOrConnectWithoutResponsesInput = {
+    where: FormsWhereUniqueInput
+    create: XOR<FormsCreateWithoutResponsesInput, FormsUncheckedCreateWithoutResponsesInput>
+  }
+
+  export type FormsUpsertWithoutResponsesInput = {
+    update: XOR<FormsUpdateWithoutResponsesInput, FormsUncheckedUpdateWithoutResponsesInput>
+    create: XOR<FormsCreateWithoutResponsesInput, FormsUncheckedCreateWithoutResponsesInput>
+    where?: FormsWhereInput
+  }
+
+  export type FormsUpdateToOneWithWhereWithoutResponsesInput = {
+    where?: FormsWhereInput
+    data: XOR<FormsUpdateWithoutResponsesInput, FormsUncheckedUpdateWithoutResponsesInput>
+  }
+
+  export type FormsUpdateWithoutResponsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    jsonForm?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formTheme?: StringFieldUpdateOperationsInput | string
+    formBackground?: StringFieldUpdateOperationsInput | string
+    formStyle?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FormsUncheckedUpdateWithoutResponsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    jsonForm?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formTheme?: StringFieldUpdateOperationsInput | string
+    formBackground?: StringFieldUpdateOperationsInput | string
+    formStyle?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserReponsesCreateManyFormInput = {
+    id?: string
+    jsonResponse: string
+    createdAt?: Date | string
+    createdBy?: string
+  }
+
+  export type UserReponsesUpdateWithoutFormInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jsonResponse?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserReponsesUncheckedUpdateWithoutFormInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jsonResponse?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserReponsesUncheckedUpdateManyWithoutFormInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jsonResponse?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
   }
 
 
