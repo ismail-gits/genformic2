@@ -48,6 +48,14 @@ export default function FormListItem({
     }
   };
 
+  const handleShareClick = async () => {
+    await navigator.share({
+      title: form.title,
+      text: `${form.subheading}, Build your form with AI using Genformic in seconds.`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/form/live/${formId}`,
+    });
+  };
+
   return (
     <div className="border shadow-sm rounded-lg p-4">
       <div className="flex justify-end">
@@ -79,25 +87,15 @@ export default function FormListItem({
       <h2 className="text-sm text-gray-500">{form.subheading}</h2>
       <hr className="my-4" />
       <div className="flex justify-between">
-        <RWebShare
-          data={{
-            text:
-              form.subheading +
-              ", Build your form with AI using Genformic in seconds.",
-            url: process.env.NEXT_PUBLIC_BASE_URL + "/form/live/" + formId,
-            title: form.title,
-          }}
-          onClick={() => "Shared successfully!"}
+        <Button
+          onClick={handleShareClick}
+          variant={"outline"}
+          size={"sm"}
+          className="rounded-4xl hover:scale-105 transition-all duration-200 text-green-500 hover:text-green-600"
         >
-          <Button
-            variant={"outline"}
-            size={"sm"}
-            className="rounded-4xl hover:scale-105 transition-all duration-200 text-green-500 hover:text-green-600"
-          >
-            <Share2 className="text-green-500 hover:text-green-600" />
-            Share
-          </Button>
-        </RWebShare>
+          <Share2 className="text-green-500 hover:text-green-600" />
+          Share
+        </Button>
 
         <Link href={`/form/live/${formId}`} target="_blank">
           <Button

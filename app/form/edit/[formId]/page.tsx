@@ -13,13 +13,13 @@ import { RWebShare } from "react-web-share";
 import { formAtom } from "@/app/store/atoms/formAtom";
 
 export default function EditForm() {
-  const { isSignedIn, isLoaded } = useUser();
+  const { isLoaded } = useUser();
   const [selectedBackground] = useAtom(formBackgroundAtom);
   const [form] = useAtom(formAtom);
   const param = useParams();
   const router = useRouter();
 
-  if (!isLoaded) {
+  if (!isLoaded && !form) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Loader className="animate-spin text-purple-500" />
@@ -27,9 +27,13 @@ export default function EditForm() {
     );
   }
 
-  if (!isSignedIn) {
-    
-  }
+  const handleShareClick = async () => {
+    await navigator.share({
+      title: form?.title,
+      text: `${form?.subheading}, Build your form with AI using Genformic in seconds.`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/form/live/${param.formId}`,
+    });
+  };
 
   return (
     <div className="px-6 h-screen">
@@ -55,25 +59,15 @@ export default function EditForm() {
               View Live
             </Button>
           </Link>
-          <RWebShare
-            data={{
-              text:
-                form?.subheading +
-                ", Build your form with AI using Genformic in seconds.",
-              url:
-                process.env.NEXT_PUBLIC_BASE_URL + "/form/live/" + param.formId,
-              title: form?.title,
-            }}
-            onClick={() => "Shared successfully!"}
+          <Button
+            onClick={handleShareClick}
+            variant={"outline"}
+            size={"sm"}
+            className="rounded-4xl hover:scale-105 transition-all duration-200 text-green-500 hover:text-green-600"
           >
-            <Button
-              variant={"outline"}
-              className="rounded-4xl hover:scale-105 transition-all duration-200 text-green-500 hover:text-green-600"
-            >
-              <Share2 className="text-green-500 hover:text-green-600" />
-              Share
-            </Button>
-          </RWebShare>
+            <Share2 className="text-green-500 hover:text-green-600" />
+            Share
+          </Button>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
