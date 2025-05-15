@@ -17,9 +17,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { fetchAiResponse } from "@/app/actions/geminiApi";
 import { saveGeneratedForm } from "@/app/actions/saveGeneratedForm";
 import { generatePrompt } from "@/lib/prompt";
+import { useAtom } from "jotai";
+import { generateFormDialogAtom } from "@/app/store/atoms/generateFormDialogAtom";
 
 export default function CreateForm() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useAtom(generateFormDialogAtom);
   const [userPrompt, setUserPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,14 +30,14 @@ export default function CreateForm() {
   const onGenerateForm = async (): Promise<void> => {
     try {
       setIsLoading(true);
-      const prompt = generatePrompt(userPrompt)
+      const prompt = generatePrompt(userPrompt);
       const aiResponse = await fetchAiResponse(prompt);
-      console.log(aiResponse)
+      console.log(aiResponse);
       const dbResponse = await saveGeneratedForm(aiResponse);
       console.log("Form created successfully:", dbResponse);
 
       if (dbResponse) {
-        router.push(`/form/edit/${dbResponse.id}`)
+        router.push(`/form/edit/${dbResponse.id}`);
       }
 
       // close the dialog after form creation
@@ -50,9 +52,10 @@ export default function CreateForm() {
   return (
     <div>
       <Button onClick={() => setIsDialogOpen(true)}>
-        <Sparkles /> Generate Form
+        <Sparkles />
+        Generate <span className="hidden md:inline">Form</span>
       </Button>
-      <Dialog open={isDialogOpen}>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="font-bold">Generate New Form</DialogTitle>
@@ -73,7 +76,7 @@ export default function CreateForm() {
                 Cancel
               </Button>
               <Button onClick={onGenerateForm} disabled={isLoading}>
-                {isLoading ? <Loader className="animate-spin"/> : "Generate"}
+                {isLoading ? <Loader className="animate-spin" /> : "Generate"}
               </Button>
             </div>
           </DialogHeader>

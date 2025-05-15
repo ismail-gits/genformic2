@@ -37,7 +37,7 @@ export default async function submitResponse({
 
     return result;
   } catch (error) {
-    console.log("Error while submitting response: " + error)
-    return null
+    console.log("Error while submitting response: " + error);
+    return null;
   }
 }

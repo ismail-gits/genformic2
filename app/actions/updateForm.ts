@@ -9,7 +9,10 @@ type UpdateFormType = {
   formId: string;
 };
 
-export default async function updateForm({ form, formId }: UpdateFormType): Promise<void> {
+export default async function updateForm({
+  form,
+  formId,
+}: UpdateFormType): Promise<void> {
   const user = await currentUser();
 
   if (!user) {
@@ -26,13 +29,12 @@ export default async function updateForm({ form, formId }: UpdateFormType): Prom
         jsonForm: JSON.stringify(form),
       },
       select: {
-        jsonForm: true
-      }
+        jsonForm: true,
+      },
     });
 
-    console.log(resposne)
-
+    console.log(resposne);
   } catch (error) {
-    console.log("Error while updating the database:", error)
+    console.log("Error while updating the database:", error);
   }
 }

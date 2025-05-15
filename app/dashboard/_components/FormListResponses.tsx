@@ -11,7 +11,7 @@ type FormListItemType = {
 };
 
 export default function FormListResponses({ form, formId }: FormListItemType) {
-  const [responses, setResponses] = useState<any[]>([])
+  const [responses, setResponses] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function FormListResponses({ form, formId }: FormListItemType) {
         });
 
         console.log("Json responses: " + jsonResponses);
-        setResponses(jsonResponses)
+        setResponses(jsonResponses);
       } catch (error) {
         console.log("Error while exporting responses: " + error);
       } finally {
@@ -44,7 +44,7 @@ export default function FormListResponses({ form, formId }: FormListItemType) {
       }
     };
 
-    fetchResponses()
+    fetchResponses();
   }, [formId]);
 
   // Convert JSON to excel and download it
@@ -79,9 +79,9 @@ export default function FormListResponses({ form, formId }: FormListItemType) {
           className="rounded-4xl hover:scale-105 transition-all duration-200 text-amber-500 hover:text-amber-600"
           disabled={isLoading}
           onClick={() => {
-            exportToExcel(responses)
+            exportToExcel(responses);
           }}
-          >
+        >
           {isLoading ? (
             <Loader className="animate-spin" />
           ) : (

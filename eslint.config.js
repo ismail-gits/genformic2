@@ -1,14 +1,14 @@
-import eslintPlugin from '@eslint/js';
+import eslintPlugin from "@eslint/js";
 
 export default [
   {
-    ignores: ['lib/prisma/**'],
+    ignores: ["lib/prisma/**"],
   },
   eslintPlugin.configs.recommended,
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
-      parser: '@typescript-eslint/parser',
+      parser: "@typescript-eslint/parser",
     },
     rules: {
       // your custom rules

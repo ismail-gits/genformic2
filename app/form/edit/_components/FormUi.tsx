@@ -46,9 +46,11 @@ export default function FormUi({ mode }: FormUiType) {
   const user = useUser();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const redirectUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`
-  const isEnableSignIn = useAtomValue(enableSignInAtom)
-  const setIsEnableSignIn = useSetAtom(enableSignInAtom)
+  const redirectUrl = `${pathname}${
+    searchParams.toString() ? `?${searchParams.toString()}` : ""
+  }`;
+  const isEnableSignIn = useAtomValue(enableSignInAtom);
+  const setIsEnableSignIn = useSetAtom(enableSignInAtom);
 
   useEffect(() => {
     const fetchForm = async () => {
@@ -68,7 +70,7 @@ export default function FormUi({ mode }: FormUiType) {
           setSelectedTheme(response.formTheme);
           setSelectedBackground(response.formBackground);
           setSelectedStyle(response.formStyle);
-          setIsEnableSignIn(response.enableSignIn)
+          setIsEnableSignIn(response.enableSignIn);
         } catch (error) {
           console.error("Error fetching form:", error);
         }

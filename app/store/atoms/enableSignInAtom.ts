@@ -1,3 +1,3 @@
 import { atom } from "jotai";
 
-export const enableSignInAtom = atom<boolean>(false)
+export const enableSignInAtom = atom<boolean>(false);

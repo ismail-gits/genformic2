@@ -13,7 +13,7 @@ type FormListType = {
 
 export default function FormList({ mode }: FormListType) {
   const [forms, setForms] = useState<GetAllFormsReturnType[]>([]);
-  const setFormCount = useSetAtom(formCountAtom)
+  const setFormCount = useSetAtom(formCountAtom);
 
   useEffect(() => {
     const fetchForms = async () => {
@@ -25,7 +25,7 @@ export default function FormList({ mode }: FormListType) {
         }
 
         setForms(response);
-        setFormCount(response.length)
+        setFormCount(response.length);
       } catch (error) {
         console.log("Error while fetching all forms: " + error);
       }
@@ -35,7 +35,7 @@ export default function FormList({ mode }: FormListType) {
   }, [setFormCount]);
 
   return (
-    <div className="mt-5 grid grid-cols-2 lg:grid-cols-3 gap-5">
+    <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {forms.map((form: GetAllFormsReturnType, index: number) => (
         <div key={index}>
           {mode === "forms" ? (
@@ -44,9 +44,9 @@ export default function FormList({ mode }: FormListType) {
               formId={form.id}
               onDelete={() => {
                 setForms((forms) => {
-                  const updatedForms = forms.filter((f) => f.id !== form.id)
-                  setFormCount(updatedForms.length)
-                  return updatedForms
+                  const updatedForms = forms.filter((f) => f.id !== form.id);
+                  setFormCount(updatedForms.length);
+                  return updatedForms;
                 });
               }}
             />

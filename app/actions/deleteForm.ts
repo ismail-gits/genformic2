@@ -8,11 +8,13 @@ type DeleteFormType = {
 };
 
 type DeleteFormReturnType = {
-  id: string,
-  ownerId: string
-}
+  id: string;
+  ownerId: string;
+};
 
-export default async function deleteForm({ formId }: DeleteFormType): Promise<DeleteFormReturnType| null> {
+export default async function deleteForm({
+  formId,
+}: DeleteFormType): Promise<DeleteFormReturnType | null> {
   const user = await currentUser();
 
   if (!user) {
@@ -22,17 +24,17 @@ export default async function deleteForm({ formId }: DeleteFormType): Promise<De
   try {
     const response = await prisma.forms.delete({
       where: {
-        id: formId
+        id: formId,
       },
       select: {
         id: true,
-        ownerId: true
-      }
-    })
+        ownerId: true,
+      },
+    });
 
-    return response
+    return response;
   } catch (error) {
-    console.log("Error while deleting form: " + error)
-    return null
+    console.log("Error while deleting form: " + error);
+    return null;
   }
 }

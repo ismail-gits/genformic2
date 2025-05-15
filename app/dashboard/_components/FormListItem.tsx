@@ -93,7 +93,7 @@ export default function FormListItem({
           className="rounded-4xl hover:scale-105 transition-all duration-200 text-green-500 hover:text-green-600"
         >
           <Share2 className="text-green-500 hover:text-green-600" />
-          Share
+          <span className="hidden md:inline">Share</span>
         </Button>
 
         <Link href={`/form/live/${formId}`} target="_blank">
@@ -103,7 +103,7 @@ export default function FormListItem({
             className="flex gap-2 items-center justify-center rounded-4xl hover:scale-105 transition-all duration-200 text-modern"
           >
             <SquareArrowOutUpRight className="text-purple-500 hover:text-purple-600" />
-            View Live
+            <span className="hidden md:inline">View Live</span>
           </Button>
         </Link>
 
@@ -114,7 +114,7 @@ export default function FormListItem({
             className="rounded-4xl hover:scale-105 transition-all duration-200 text-gray-600 hover:text-gray-700"
           >
             <Edit className="text-gray-600 hover:text-gray-700" />
-            Edit
+            <span className="hidden md:inline">Edit</span>
           </Button>
         </Link>
       </div>

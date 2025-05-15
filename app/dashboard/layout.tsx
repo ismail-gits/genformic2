@@ -8,10 +8,10 @@ export default function DashboardLayout({
 }) {
   return (
     <div>
-      <div className="hidden md:block md:w-64 fixed">
+      <div className="md:w-64 fixed">
         <SideNav />
       </div>
-      <div className="md:ml-64">{children}</div>
+      <div className="ml-15 md:ml-64">{children}</div>
     </div>
   );
 }

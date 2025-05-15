@@ -58,7 +58,7 @@ export default async function getForm({
       formTheme: response.formTheme,
       formStyle: JSON.parse(response.formStyle) as StylesType,
       jsonForm: JSON.parse(response.jsonForm) as FormSchemaType,
-      enableSignIn: response.enableSignIn
+      enableSignIn: response.enableSignIn,
     };
   } catch (error) {
     console.log("Error fetching form from database:", error);

@@ -1,9 +1,10 @@
 "use client";
 
 import { formCountAtom } from "@/app/store/atoms/formCountAtom";
+import { generateFormDialogAtom } from "@/app/store/atoms/generateFormDialogAtom";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import {
   ChartNoAxesCombined,
   LibraryBig,
@@ -47,10 +48,11 @@ const menuList: MenuListType[] = [
 export default function SideNav() {
   const path = usePathname();
   const formCount = useAtomValue(formCountAtom);
+  const setIsDialogOpen = useSetAtom(generateFormDialogAtom);
 
   return (
     <div className="h-screen shadow-md border">
-      <div className="p-5">
+      <div className="p-1 md:p-5">
         {menuList.map((menu: MenuListType, index: number) => (
           <Link
             href={menu.path}
@@ -60,12 +62,17 @@ export default function SideNav() {
             }`}
           >
             <menu.icon />
-            {menu.name}
+            <span className="hidden md:inline">{menu.name}</span>
           </Link>
         ))}
       </div>
-      <div className="fixed bottom-6 p-6 w-64">
-        <Button className="w-full">
+      <div className="fixed bottom-6 p-6 w-64 hidden md:inline">
+        <Button
+          className="w-full"
+          onClick={() => {
+            setIsDialogOpen(true);
+          }}
+        >
           <Sparkles className="w-4 h-4" /> Generate Form
         </Button>
         <div className="my-7">

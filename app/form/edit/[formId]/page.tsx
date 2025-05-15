@@ -70,14 +70,14 @@ export default function EditForm() {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
-        <div className="p-5 border rounded-lg shadow sticky top-5">
-          <Controller />
-        </div>
         <div
           className="md:col-span-2 border rounded-lg p-10 min-h-screen flex items-center justify-center"
           style={{ backgroundImage: selectedBackground }}
         >
           <FormUi mode="edit" />
+        </div>
+        <div className="p-5 border rounded-lg shadow sticky top-5">
+          <Controller />
         </div>
       </div>
     </div>

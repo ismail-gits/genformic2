@@ -31,7 +31,7 @@ export default function Controller() {
   const [showMore, setShowMore] = useState(false);
   const param = useParams();
   const formId = param.formId as string;
-  const [isEnableSignIn, setIsEnableSignIn] = useAtom(enableSignInAtom)
+  const [isEnableSignIn, setIsEnableSignIn] = useAtom(enableSignInAtom);
 
   return (
     <div>
@@ -159,7 +159,7 @@ export default function Controller() {
         <Checkbox
           checked={isEnableSignIn}
           onCheckedChange={async (checked) => {
-            setIsEnableSignIn(checked as boolean)
+            setIsEnableSignIn(checked as boolean);
             await changeFormUI({
               type: "enableSignIn",
               value: checked,

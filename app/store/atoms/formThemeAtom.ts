@@ -1,3 +1,3 @@
 import { atom } from "jotai";
 
-export const formThemeAtom = atom<string>('light')
+export const formThemeAtom = atom<string>("light");

@@ -1,13 +1,11 @@
-"use client"
+"use client";
 
 import { useUser } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
 export default function Upgrade() {
-  const user = useUser()
-
-
+  const user = useUser();
 
   return (
     <div className="p-10">

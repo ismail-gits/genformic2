@@ -8,14 +8,16 @@ type ExportResponsesType = {
 };
 
 export type ExportResponsesReturnType = {
-  id: string,
-  formId: string,
-  jsonResponse: string,
-  createdAt: Date,
-  createdBy: string,
-}
+  id: string;
+  formId: string;
+  jsonResponse: string;
+  createdAt: Date;
+  createdBy: string;
+};
 
-export default async function exportResponses({ formId }: ExportResponsesType): Promise<ExportResponsesReturnType[] | null> {
+export default async function exportResponses({
+  formId,
+}: ExportResponsesType): Promise<ExportResponsesReturnType[] | null> {
   const user = await currentUser();
 
   if (!user) {
@@ -28,17 +30,17 @@ export default async function exportResponses({ formId }: ExportResponsesType): 
         id: formId,
       },
       select: {
-        responses: true
-      }
+        responses: true,
+      },
     });
 
     if (!result) {
-      throw new Error("No responses from database")
+      throw new Error("No responses from database");
     }
 
-    return result.responses
+    return result.responses;
   } catch (error) {
     console.log("Error while exporting responses: " + error);
-    return null
+    return null;
   }
 }
